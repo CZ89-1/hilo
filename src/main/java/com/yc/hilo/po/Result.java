@@ -2,7 +2,7 @@ package com.yc.hilo.po;
 
 public class Result implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	private int code;
 	private String msg;
 	private Object data;
