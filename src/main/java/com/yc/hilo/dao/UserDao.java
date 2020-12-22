@@ -4,23 +4,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.yc.hilo.biz.BizException;
 import com.yc.hilo.biz.UserBiz;
-import com.yc.hilo.dao.BaseDao;
 import com.yc.hilo.po.User;
 
+
+
 @Repository
-public class UserDao extends BaseDao{
-	
+public class UserDao extends BaseDao {
+
 	@Resource
 	private UserBiz ubiz;
-	
+
+
+	/**
+	 * 根据用户名查用户
+	 * 
+	 * @param name
+	 * @return
+	 * @throws SQLException
+	 */
+
+	public User login(String username, String password, String vcode, HttpSession session) throws BizException {
+		return ubiz.login(username, password, vcode, session);
+	}
+
 	public void register(User user) throws BizException, SQLException {
 		ubiz.register(user);
+	}
+
+	public void updatePwdByName(String password, String username) {
+		String sql="update user set password=? where username=?";
+		jt.update(sql,password,username);
+		
 	}
 
 	public void insert(User user) throws SQLException{
@@ -52,4 +73,5 @@ public class UserDao extends BaseDao{
 			return user;
 		}
 	};
+
 }

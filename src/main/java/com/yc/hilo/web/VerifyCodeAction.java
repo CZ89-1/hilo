@@ -20,6 +20,7 @@ public class VerifyCodeAction  {
 		session.setAttribute("vcode", vcode);
 		return vcode;
 	}
-   
-
 }
+
+
+
