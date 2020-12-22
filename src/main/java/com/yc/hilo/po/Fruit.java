@@ -7,6 +7,14 @@ public class Fruit implements java.io.Serializable{
 	private Double fprice;
 	private String fImage;
 	private String fdesc;
+	private Double fnprice;
+	
+	public Double getFnprice() {
+		return fnprice;
+	}
+	public void setFnprice(Double fnprice) {
+		this.fnprice = fnprice;
+	}
 	public Integer getFid() {
 		return fid;
 	}
