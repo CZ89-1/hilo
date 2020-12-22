@@ -448,6 +448,36 @@ Português
 	</tr>
 </div>
 </div>
+<script type="text/javascript">
+				var v1 = new Vue({
+							el:"#login",
+							data:{
+								username:"",
+								password:"",
+								vcode:"",
+								imgsrc:"verifyCode.s?a="
+							},
+							methods:{
+								changeImg(){
+									this.imgsrc += new Date();
+								},
+								login(){
+									var params = new URLSearchParams();
+									params.append("username",this.username);
+									params.append("password",this.password);
+									params.append("vcode",this.vcode);
+									axios.post("login.s",params).then(res=>{
+										alert(res.data.msg);
+										if(res.data.code == 1){
+											location.href="index.html";
+										}
+									}).catch(error=>{
+										alert("系统错误，请联系管理员");
+									})
+								}
+							}
+						})
+					</script>
 </form>
 </div>
 </div>
