@@ -1,6 +1,5 @@
 package com.yc.hilo.web;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -58,7 +57,7 @@ public class UserAction {
 		
 	}
 	
-	@RequestMapping("reg")
+	@RequestMapping("reg.s")
 	public Result reg(User user,String vcode,HttpSession session) throws SQLException {
 		try {
 			String svcode = (String) session.getAttribute("vcode");
@@ -72,5 +71,6 @@ public class UserAction {
 			return new Result(0, e.getMessage());
 		} 
 	}
+
 	
 }

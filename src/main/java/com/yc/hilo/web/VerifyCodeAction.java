@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yc.hilo.util.VerifyCodeUtils;
+
 @RestController
 public class VerifyCodeAction  {
 
@@ -19,6 +20,7 @@ public class VerifyCodeAction  {
 		session.setAttribute("vcode", vcode);
 		return vcode;
 	}
-   
-
 }
+
+
+

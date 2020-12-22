@@ -21,11 +21,6 @@ public class UserDao extends BaseDao {
 	@Resource
 	private UserBiz ubiz;
 
-	public void insert(User user) throws SQLException {
-		String sql = "insert into user values(null,?,?,?,?,?,?,1,null,?)";
-		jt.update(sql, user.getUsername(), user.getPassword(), user.getName(), user.getEmail(), user.getPhone(),
-				user.getSex(), user.getAddr());
-	}
 
 	/**
 	 * 根据用户名查用户
@@ -34,12 +29,6 @@ public class UserDao extends BaseDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public User selectByName(String username) {
-		String sql = "select * from user where username=?";
-		return jt.query(sql, rs -> {
-			return rs.next() ? UserRowMapper.mapRow(rs, -1) : null;
-		}, username);
-	}
 
 	public User login(String username, String password, String vcode, HttpSession session) throws BizException {
 		return ubiz.login(username, password, vcode, session);
@@ -49,6 +38,27 @@ public class UserDao extends BaseDao {
 		ubiz.register(user);
 	}
 
+	public void updatePwdByName(String password, String username) {
+		String sql="update user set password=? where username=?";
+		jt.update(sql,password,username);
+		
+	}
+
+	public void insert(User user) throws SQLException{
+		String sql = "insert into user values(null,?,?,?,?,?,null,null)";
+		jt.update(sql,
+				user.getUsername(),user.getPassword(),
+				user.getName(),user.getEmail(),user.getPhone()
+				);
+				
+	}
+	public User selectByName(String username) {
+		String sql = "select * from user where username=?";
+		return jt.query(sql, rs->{
+			return rs.next() ? UserRowMapper.mapRow(rs, -1) : null;
+		}, username);
+	}
+	
 	private RowMapper<User> UserRowMapper = new RowMapper<User>() {
 
 		@Override
@@ -60,18 +70,8 @@ public class UserDao extends BaseDao {
 			user.setName(rs.getString("name"));
 			user.setEmail(rs.getString("email"));
 			user.setPhone(rs.getString("phone"));
-			user.setSex(rs.getString("sex"));
-//			user.setState(rs.getInt("state"));
-//			user.setCode(rs.getString("code"));
-			user.setAddr(rs.getString("addr"));
 			return user;
 		}
 	};
-
-	public void updatePwdByName(String password, String username) {
-		String sql="update user set password=? where username=?";
-		jt.update(sql,password,username);
-		
-	}
 
 }

@@ -3,6 +3,7 @@ package com.yc.hilo.biz;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -41,28 +42,6 @@ public class UserBiz {
 			return "验证码错误!";
 		}
 	}
-
-	public void register(User user) throws BizException, SQLException {
-		// 字段验证
-		
-		Utils.checkNull(user.getUsername(), "用户名不能为空");
-		Utils.checkNull(user.getPassword(), "密码不能为空");
-		Utils.checkNull(user.getEmail(), "邮箱不能为空");
-		Utils.checkNull(user.getPhone(), "电话号码不能为空");
-		Utils.checkNull(user.getName(), "昵称不能为空");
-		// 同名验证
-		User dbuser = udao.selectByName(user.getUsername());
-		if(dbuser != null ) {
-			throw new BizException("该用户名已经被注册");
-		}
-		
-		try {
-			udao.insert(user);
-		} catch (SQLException e) {
-			throw new BizException("注册失败，请联系管理员",e);
-		}
-	}
-	
 	public User login(String username,String password,String vcode,HttpSession session) throws BizException {
 		// 字段验证
 		Utils.checkNull(username, "请输入用户名");
@@ -84,5 +63,25 @@ public class UserBiz {
 		}
 		return user;
 	}
-	
+	public void register(User user) throws BizException, SQLException {
+		// 字段验证
+		
+		Utils.checkNull(user.getUsername(), "用户名不能为空");
+		Utils.checkNull(user.getPassword(), "密码不能为空");
+		Utils.checkNull(user.getEmail(), "邮箱不能为空");
+		Utils.checkNull(user.getPhone(), "电话号码不能为空");
+		Utils.checkNull(user.getName(), "姓名不能为空");
+		// 同名验证
+		User dbuser = udao.selectByName(user.getUsername());
+		if(dbuser != null ) {
+			throw new BizException("该用户名已经被注册");
+		}
+		
+		try {
+			udao.insert(user);
+		} catch (SQLException e) {
+			throw new BizException("注册失败，请联系管理员",e);
+		}
+	}
+
 }
