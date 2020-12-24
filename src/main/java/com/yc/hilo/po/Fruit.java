@@ -11,23 +11,39 @@ public class Fruit implements java.io.Serializable{
 	private String fImage;
 	private String fdesc;
 	private Double fnprice;
+	private Integer hot;
 	private Date fdate;
 	private Integer guanggao;
+	private Integer cid;
+
 	
 	
 	
 	
-	public Integer getGuanggao() {
-		return guanggao;
+	public Integer getHot() {
+		return hot;
 	}
-	public void setGuanggao(Integer guanggao) {
-		this.guanggao = guanggao;
+	public void setHot(Integer hot) {
+		this.hot = hot;
 	}
 	public Date getFdate() {
 		return fdate;
 	}
 	public void setFdate(Date fdate) {
 		this.fdate = fdate;
+	}
+	public Integer getGuanggao() {
+		return guanggao;
+	}
+	public void setGuanggao(Integer guanggao) {
+		this.guanggao = guanggao;
+	}
+	public Integer getCid() {
+		return cid;
+	}
+	public void setCid(Integer cid) {
+		this.cid = cid;
+
 	}
 	public Double getFnprice() {
 		return fnprice;
@@ -68,7 +84,9 @@ public class Fruit implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Fruit [fid=" + fid + ", fname=" + fname + ", fprice=" + fprice + ", fImage=" + fImage + ", fdesc="
-				+ fdesc + "]";
+				+ fdesc + ", fnprice=" + fnprice + ", hot=" + hot + ", fdate=" + fdate + ", guanggao=" + guanggao
+				+ ", cid=" + cid + "]";
 	}
+	
 	
 }

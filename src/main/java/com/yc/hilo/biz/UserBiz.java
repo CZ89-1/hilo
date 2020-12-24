@@ -76,7 +76,6 @@ public class UserBiz {
 		if(dbuser != null ) {
 			throw new BizException("该用户名已经被注册");
 		}
-		
 		try {
 			udao.insert(user);
 		} catch (SQLException e) {

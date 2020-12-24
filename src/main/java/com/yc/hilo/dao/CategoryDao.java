@@ -11,7 +11,6 @@ import com.yc.hilo.po.Category;
 
 
 
-
 @Repository
 public class CategoryDao extends BaseDao{
 
@@ -29,5 +28,5 @@ public class CategoryDao extends BaseDao{
 			c.setCname(rs.getString("cname"));
 			return c;
 		}
-	}; 
+	};
 }

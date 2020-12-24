@@ -13,6 +13,8 @@ import com.yc.hilo.po.Fruit;
 
 @RestController
 public class FruitsAction {
+	
+	
   @Resource
   private FruitsDao fd;
  
@@ -22,6 +24,7 @@ public class FruitsAction {
   public List<Fruit> queryFruitsNew(){
 	  return fd.SelectFruitsNew();
   }
+
   @RequestMapping("fruitsP")
   public List<Fruit> queryFruitsPopular(){
 	  return fd.SelectFruitsPopular();
@@ -38,6 +41,12 @@ public class FruitsAction {
   @RequestMapping(path="fruit.s",params = "op=queryFruitById")
 	public Fruit queryFruitById(int fid){
 		return fd.queryFruitById(fid);
+
+  }
+  @RequestMapping(path="fruits.s",params = "op=queryFruits")
+	public List<Fruit> queryFruitByCid(int cid){
+		return fd.queryFruitByCid(cid);
+
 	}
 	
 }
