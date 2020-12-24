@@ -375,7 +375,7 @@ Português
 <h2>Cart</h2>
 <ul>
 <li><a href="index.html">Home</a></li>
-<li>Cart</li>
+<li>Olist</li>
 </ul>
 </div>
 </div>
@@ -394,30 +394,40 @@ Português
 <div class="row">
 <div class="col-lg-12 col-md-12" id="app1">
 <form>
-<div class="cart-wraps">
+<div class="cart-wraps" >
 <div class="cart-table table-responsive">
-<table class="table table-bordered">
+<table class="table table-bordered" v-for="o in olist">
+
+
 <thead>
 <tr>
+						<th colspan="5">订单号:{{o.oid}} 金额:<font color="red">{{o.total}} </font>
+							状态 : <a href="404.html?oid=73"><font color="red">付款</font></a>
+
+						</th>
+					</tr>
+<tr >
 <th scope="col">图片</th>
 <th scope="col">名称</th>
 <th scope="col">价格</th>
 <th scope="col">数量</th>
 <th scope="col">总价</th>
 </tr>
+
 </thead>
-<tbody v-for="f in fruits">
+
+<tbody>
 <tr>
 <td class="product-thumbnail">
 <a href="#">
-<img :src="f.f_image" alt="Image">
+<img :src="o.f_image" alt="Image">
 </a>
 </td>
 <td class="product-name">
-<a href="#">{{f.fname}}</a>
+<a href="#">{{o.fname}}</a>
 </td>
 <td class="product-price">
-<span class="unit-amount">{{f.fprice}}</span>
+<span class="unit-amount">{{o.fprice}}</span>
 </td>
 <td class="product-quantity">
 <div class="input-counter">
@@ -431,10 +441,9 @@ Português
 </div>
 </td>
 <td class="product-subtotal">
-<span class="subtotal-amount">￥{{f.fprice*f.count}}</span>
-<a href="cart.html" class="remove" @click="deleteCart(f.fid)">
+<span class="subtotal-amount">￥{{o.subtotal}}</span>
 <i class='bx bx-trash'></i>
-</a>
+
 </td>
 </tr>
 
@@ -444,119 +453,23 @@ Português
 
 </table>
 </div>
-<div class="cart-buttons">
-<div class="row align-items-center">
-<div class="col-lg-7 col-sm-7 col-md-7">
-<div class="continue-shopping-box">
-<a href="checkout.html" class="default-btn btn-bg-three">
-立即购买
-</a>
+
 </div>
-</div>
-<div class="col-lg-5 col-sm-5 col-md-5 text-right">
-<a id="clear" class="default-btn btn-bg-three" @click="clearCart()">
-清空购物车
-</a>
-</div>
-</div>
-</div>
-</div>
-<!-- <div class="row">
-<div class="col-lg-6">
-<div class="cart-calc">
-<div class="cart-wraps-form">
-<h3>Calculate Shipping</h3>
-<div class="row">
-<div class="col-lg-6">
-<div class="form-group">
-<select>
-<option value="">Credit Card Type</option>
-<option value="">Another option</option>
-<option value="">A option</option>
-</select>
-</div>
-</div>
-<div class="form-group col-lg-6">
-<input type="text" class="form-control" placeholder="Credit Card Number">
-</div>
-<div class="form-group col-12">
-<input type="text" class="form-control" placeholder="Card Verification Number">
-</div>
-</div>
-<div class="form-group">
-<input type="text" class="form-control" placeholder="Coupon Code">
-</div>
-<a href="#" class="default-btn btn-bg-three">
-Apply Coupon
-</a>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="cart-totals">
-<h3>Cart Totals</h3>
-<ul>
-<li>Subtotal <span>$150.00</span></li>
-<li>Shipping <span>$30.00</span></li>
-<li>Coupon <span>$20.00</span></li>
-<li>Total <span><b>$160.00</b></span></li>
-</ul>
-<a href="#" class="default-btn btn-bg-three">
-Proceed To Checkout
-</a>
-</div>
-</div>
-</div> -->
+
 </form>
 </div>
 <script type="text/javascript">
 			var v1 = new Vue({
 				el :"#app1",
-				data :{
-					fruits:[]
+				data:{
+					olist:[]
 				},
 				created(){
-					axios.get("getLoginedUser").then(res=>{
-						if( res.data && res.data.uid ){
-							//console.log(this.$refs.counts.value);
-							axios.get("queryCart").then(res=>{
-								this.fruits = res.data;
-							});
-						}else {
-							alert("你尚未登录");
-							location.href = "login.html";
-						}
-					});
-				},
-				computed:{
-					sum(){
-						var sum = 0;
-						for(var i in this.fruits){
-					           sum+=this.fruits[i].fprice*this.fruits[i].count;
-					       }
-					    return sum;
-					}
-				},
-				methods:{
-					deleteCart(fid){
-						if(confirm("确定删除该商品?")){
-							axios.get("cart.s?deleteCart&fid="+fid).then(res=>{
-								alert(res.data.msg);
-							})
-						}
-					},
-					clearCart(){
-						if(confirm("确定要清空购物车?")){
-							axios.get("clearCart").then(res=>{
-								alert(res.data.msg);
-							}),
-							axios.get("queryCart").then(res=>{
-								this.fruits=res.data;
-							});
-						}
-					},
-					
+					axios.get("queryOlist").then(res=>{
+						this.olist = res.data;
+					})
 				}
+				
 			})
 		
 		</script>

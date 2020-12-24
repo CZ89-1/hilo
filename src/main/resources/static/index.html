@@ -417,10 +417,10 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="banner-item-content">
-                            <span>WELCOME TO OUR SHOP</span>
-                            <h1>Order the Organic Foods Now!</h1>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscins elitr, seddiams nonumy eirmod.</p>
-                            <a href="#" class="default-btn btn-bg-one">Order Now</a>
+                            <span>欢迎来到hilo商店</span>
+                            <h1>立即订购有机食品</h1>
+                            <p>希望我的商品能得到您的认可</p>
+                            <a href="#" class="default-btn btn-bg-one">立即订购吧</a>
                             <img src="assets/images/home-one/home-one-img1.png" alt="Banner Images">
                         </div>
                     </div>
@@ -429,18 +429,18 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-6">
                                 <div class="banner-item-side">
-                                    <h3>Sign Up on Shop</h3>
-                                    <span>Get a 30% Offer!</span>
-                                    <a href="#" class="newslette-btn">Newsletter</a>
+                                    <h3>火热销售</h3>
+                                    <span>30%的优惠</span>
+                                    <a href="#" class="newslette-btn">新品上市</a>
                                     <img src="assets/images/home-one/home-one-img2.png" alt="Banner Images">
                                 </div>
                             </div>
 
                             <div class="col-lg-12 col-md-6">
                                 <div class="banner-item-side-2">
-                                    <h3>Big Sale Offer</h3>
-                                    <span>Up to 70% Discount</span>
-                                    <a href="shop-grid.html" class="shop-btn">Shop Now</a>
+                                    <h3>最大折扣</h3>
+                                    <span>降价70%</span>
+                                    <a href="shop-grid.html" class="shop-btn">销售中</a>
                                 </div>
                             </div>
                         </div>
@@ -454,14 +454,14 @@
         <section class="new-arrival-area pt-100 pb-70">
             <div class="container">
                 <div class="section-title text-center">
-                    <h2>New Arrivals</h2>
+                    <h2>新品上市</h2>
                 </div>
 
                 <div class="row pt-45" id="app1" >
                     <div class="col-lg-3 col-sm-6" v-for="f in fruits">
                         <div class="new-arrival-item">
                             <div class="arrival-img">
-                                <a href="shop-details.html">
+                                <a :href="'shop-details.html#'+f.fid">
                                     <img :src="f.fImage" alt="Product Images">
                                 </a>
                                 <div class="arrival-item-tag">
@@ -475,7 +475,7 @@
                             </div>
 
                             <div class="content">
-                                <h3><a href="shop-details.html">{{f.fname}}</a></h3>
+                                <h3><a :href="'shop-details.html#'+f.fid">{{f.fname}}</a></h3>
                                 <span>${{f.fprice}}/Kg <del>${{f.fnprice}}/Kg</del></span>
                             </div>
                         </div>
@@ -493,7 +493,7 @@
                     		  fruits:[]
                     	  },
                     	  created(){
-                    		  axios.get("fruits").then(res=>{
+                    		  axios.get("fruitsN").then(res=>{
                     			  this.fruits=res.data;
                     		  })
                     	  }
@@ -505,62 +505,30 @@
                     </section>
         <!-- New Arrival Area End -->
 
-        <!-- Choose Area -->
-        <div class="choose-area pt-100 pb-70">
-            <div class="container">
-                <div class="section-title text-center">
-                    <h2>Why You Choose Us</h2>
-                </div>
-                <div class="row pt-45">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="choose-card">
-                            <i class="flaticon-24-hours"></i>
-                            <h3>24/7 Online Support</h3>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="choose-card">
-                            <i class="flaticon-leaf"></i>
-                            <h3>100% Pure Foods</h3>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-sm-6 offset-lg-0 offset-sm-3">
-                        <div class="choose-card">
-                            <i class="flaticon-service"></i>
-                            <h3>Home Delivery</h3>
-                            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- Choose Area End -->
 
         <!-- Trending Area -->
         <div class="trending-area pt-100 pb-70">
             <div class="container">
                 <div class="section-title text-center">
-                    <h2>Trending Products</h2>
+                    <h2>流行商品</h2>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget arcu luctus orci vulputate eleifend ut et odio. Proin purus mi, convallis sit amet pretium a, rhoncus aliquam purus. 
+                                                         追求潮流,永无止境
                     </p>
                 </div>
 
-                <div class="row pt-45">
-                    <div class="col-lg-9">
+                <div class="row pt-45" id="app2">
+                    <div class="col-lg-9" >
                         <div class="row">
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
+                            <div class="col-lg-4 col-sm-6" v-for="f in fruits">
+                                <div class="trending-item" >
                                     <div class="trending-img">
                                         <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img1.png" alt="Product Images">
+                                            <img :src="f.fImage" alt="Product Images">
                                         </a>
                                         <div class="trending-item-tag">
-                                            <h3>New</h3>
+                                            <h3>Popular</h3>
                                         </div>
                                         <ul class="trending-item-action">
                                             <li><a href="#"><i class='bx bx-repost'></i></a></li>
@@ -570,7 +538,7 @@
                                     </div>
         
                                     <div class="content">
-                                        <h3><a href="shop-details.html">Rear Organic Butter</a></h3>
+                                        <h3><a href="shop-details.html">{{f.fname}}</a></h3>
                                         <div class="rating">
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
@@ -578,179 +546,109 @@
                                             <i class='bx bxs-star'></i>
                                             <i class='bx bxs-star'></i>
                                         </div>
-                                        <span>$20.0/Kg</span>
+                                        <span>${{f.fprice}}/Kg <del>${{f.fnprice}}/Kg</del></span>
                                     </div>
+                                </div>
+                                </div>
+                             </div>
+                             
+                    </div>
+
+                    <div class="col-lg-3" v-for="g in gfruits">
+                        <div class="row" >
+                            <div class="col-lg-12 col-md-6" >
+                                <div class="trending-side-item">
+                                    <h3>{{g.fdesc}}</h3>
+                                    <h3><a href="shop-details.html">{{g.fname}}</a></h3>
+                                    <a href="#" class="shop-btn">立即购买</a>
+                                    <img :src="g.fImage" alt="Images">
+                                     <div class="trending-item-tag">
+                                            <h3>广告</h3>
+                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
-                                    <div class="trending-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img2.png" alt="Product Images">
-                                        </a>
-                                        <div class="trending-item-tag">
-                                            <h3>-22%</h3>
-                                        </div>
-                                        <ul class="trending-item-action">
-                                            <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                            <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-                                            <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-                                        </ul>
-                                    </div>
-        
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Fresh Carrots</a></h3>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                        <span>$5.0/Kg <del>$6.0/Kg</del></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
-                                    <div class="trending-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img3.png" alt="Product Images">
-                                        </a>
-                                        <ul class="trending-item-action">
-                                            <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                            <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-                                            <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-                                        </ul>
-                                    </div>
-        
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Fresh Green Cucumber</a></h3>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                        <span>$2.0/Kg <del>$4.0/Kg</del></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
-                                    <div class="trending-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img4.png" alt="Product Images">
-                                        </a>
-                                        <ul class="trending-item-action">
-                                            <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                            <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-                                            <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-                                        </ul>
-                                    </div>
-        
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Fresh Pineapple</a></h3>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                        <span>$3.0/Kg <del>$3.5.0/Kg</del></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
-                                    <div class="trending-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img5.png" alt="Product Images">
-                                        </a>
-                                        <ul class="trending-item-action">
-                                            <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                            <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-                                            <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-                                        </ul>
-                                    </div>
-        
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Olive Oil</a></h3>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                        <span>$6.0/Kg <del>$7.5.0/Kg</del></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="trending-item">
-                                    <div class="trending-img">
-                                        <a href="shop-details.html">
-                                            <img src="assets/images/trending-img/trending-img6.png" alt="Product Images">
-                                        </a>
-                                        <div class="trending-item-tag">
-                                            <h3>New</h3>
-                                        </div>
-                                        <ul class="trending-item-action">
-                                            <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                            <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-                                            <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-                                        </ul>
-                                    </div>
-        
-                                    <div class="content">
-                                        <h3><a href="shop-details.html">Super Natural Milk</a></h3>
-                                        <div class="rating">
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                            <i class='bx bxs-star'></i>
-                                        </div>
-                                        <span>$1.0/Kg <del>$1.5.0/Kg</del></span>
-                                    </div>
+                            <div class="col-lg-12 col-md-6" v-for="t in tfruits">
+                                <div class="trending-side-item-2">
+                                    <h3>{{t.fdesc}}</h3>
+                                    <h3><a href="shop-details.html">{{t.fname}}</a></h3>
+                                    <a href="#" class="shop-btn">立即购买</a>
+                                    <img :src="t.fImage" alt="Images">
+                                     <div class="trending-item-tag">
+                                            <h3>优惠推荐</h3>
+                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
+                    
+                </div>
+                     <script type="text/javascript">
+                         var vue=new Vue({
+                    	  el:"#app2",
+                    	  data:{
+                    		  fruits:[],
+                    		  gfruits:[],
+                    		  tfruits:[]
+                    	  },
+                    	  created(){
+                    		  axios.get("fruitsP").then(res=>{
+                    			  this.fruits=res.data;
+                    		  }),
+                    		  axios.get("fruitsG").then(res=>{
+                    			  this.gfruits=res.data;
+                    		  }),
+                    		  axios.get("fruitsT").then(res=>{
+                    			  this.tfruits=res.data;
+                    		  })
+                    	  }
+                      })
+                    
+                    
+                    </script>
+                            
+                       
+                            
+                </div>
+        </div>
+        
+        <!-- Choose Area -->
+        <div class="choose-area pt-100 pb-70">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h2>为什么你会选择我们</h2>
+                </div>
+                <div class="row pt-45">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="choose-card">
+                            <i class="flaticon-24-hours"></i>
+                            <h3>全天候在线支持</h3>
+                            <p>每天都有新鲜优惠的产品</p>
+                        </div>
+                    </div>
 
-                    <div class="col-lg-3">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-6">
-                                <div class="trending-side-item">
-                                    <h3>Buy One Get One</h3>
-                                    <p>Buy one get one by getting one of our prawn and you will be able to get this offer.</p>
-                                    <a href="#" class="shop-btn">Shop It Now</a>
-                                    <img src="assets/images/trending-img/trending-img7.png" alt="Images">
-                                </div>
-                            </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="choose-card">
+                            <i class="flaticon-leaf"></i>
+                            <h3>100%纯食品</h3>
+                            <p>无添加,无农药残留</p>
+                        </div>
+                    </div>
 
-                            <div class="col-lg-12 col-md-6">
-                                <div class="trending-side-item-2">
-                                    <span>Product Amazing!</span>
-                                    <h3>Rear Organic Saffron</h3>
-                                    <a href="#" class="shop-btn">Shop Now</a>
-                                    <img src="assets/images/trending-img/trending-img8.png" alt="Images">
-                                </div>
-                            </div>
+                    <div class="col-lg-4 col-sm-6 offset-lg-0 offset-sm-3">
+                        <div class="choose-card">
+                            <i class="flaticon-service"></i>
+                            <h3>送货上门</h3>
+                            <p>无论你身在何方，我们都能送货上门</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Trending Area End -->
+        
+        
 
         <!-- Brand Area -->
         <div class="brand-area pb-100">

@@ -26,6 +26,10 @@
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
 <title>Hilo - Organic Food Shop HTML Template</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body>
 
@@ -387,20 +391,20 @@ Português
 </div>
 
 
-<div class="product-details-area pt-100 pb-70">
+<div class="product-details-area pt-100 pb-70" id="app1">
 <div class="container">
-<div class="row align-items-center">
+<div class="row align-items-center" >
 <div class="col-lg-6 col-md-12">
 <div class="product-detls-image">
-<img src="assets/images/products/shop-details-img.png" alt="Image">
+<img :src="fruits.fImage" alt="Image">
 </div>
 </div>
 <div class="col-lg-6 col-md-12">
 <div class="product-desc">
-<h3>Black Fresh Berry</h3>
+<h3>{{fruits.fname}}</h3>
 <div class="price">
-<span class="new-price">$20.00</span>
-<span class="old-price">$30.00</span>
+<span class="new-price">${{fruits.fprice}}</span>
+<span class="old-price">${{fruits.fnprice}}</span>
 </div>
 <div class="product-review">
 <div class="rating">
@@ -413,30 +417,28 @@ Português
 <a href="#" class="rating-count">3 reviews</a>
 </div>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur
-adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
+{{fruits.fdesc}}
 </p>
 <div class="input-count-area">
-<h3>Quantity</h3>
+<h3>数量</h3>
 <div class="input-counter">
 <span class="minus-btn"><i class='bx bx-minus'></i></span>
-<input type="text" value="1">
+<input type="text" ref="counts" onpaste="return false;" value="1">
 <span class="plus-btn"><i class='bx bx-plus'></i></span>
 </div>
 </div>
 <div class="product-add-btn">
 <button type="submit" class="default-btn btn-bg-three">
-<i class="fas fa-cart-plus"></i> Buy Now!
+<i class="fas fa-cart-plus"></i> 立即购买
 </button>
-<button type="submit" class="default-btn btn-bg-three">
-<i class="fas fa-cart-plus"></i> Add To Cart
+<button type="submit" class="default-btn btn-bg-three" @click="addCart(fruits.fid)">
+<i class="fas fa-cart-plus"></i> 添加购物车
 </button>
 </div>
 <div class="product-share">
 <ul>
 <li>
-<span>Share:</span>
+<span>分享:</span>
 </li>
 <li>
 <a href="#" target="_blank">
@@ -465,6 +467,50 @@ adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+			var vue = new Vue({
+				el : "#app1",
+				data :{
+					fruits:[]
+				},
+				created(){
+					
+					axios.get("fruit.s?op=queryFruitById&fid="+location.hash.substring(1)).then(res=>{
+						this.fruits = res.data;
+					})
+				},
+				methods:{
+					addCart(){
+						
+						axios.get("getLoginedUser").then(res=>{
+							
+							if( res.data && res.data.uid ){
+								//console.log(this.$refs.counts.value);
+								var params = new URLSearchParams();
+								
+								params.append("fid",this.fruits.fid);
+								params.append("count",this.$refs.counts.value);
+								axios.post("addCart",params).then(res=>{
+									/* alert(res.data); */
+									if(res.data.code == 1) {
+										location.href = "cart.html";
+									}else{
+										alert(res.data.msg);
+									}
+								}); 
+							}else {
+								alert("你尚未登录");
+								location.href = "log-in.html";
+							}
+							
+						});
+						
+					}
+				}
+			})
+		
+		</script>
 
 
 <div class="product-tab pb-70">

@@ -24,7 +24,7 @@ public class OrdersDao extends BaseDao{
 	 */
 	
 	public int insertOrders(Orders orders) {
-		String sql = "insert into orders values(null,?,now(),?,?,?,?,?)";
+		String sql = "insert into orders values(null,?,?,now(),?,?,?)";
 		KeyHolder kh = new GeneratedKeyHolder();
 		jt.update(new PreparedStatementCreator() {
 			@Override
@@ -32,22 +32,16 @@ public class OrdersDao extends BaseDao{
 				PreparedStatement ps = con.prepareStatement(sql, new String[] {"oid"});
 				ps.setObject(1, orders.getTotal());
 //				ps.setObject(2, orders.getState());
-				ps.setObject(3, orders.getAddr());
-				ps.setObject(4, orders.getPhone());
-				ps.setObject(5, orders.getUid());
-				ps.setObject(6, orders.getName());
+				ps.setObject(2, orders.getAddr());
+				ps.setObject(3, orders.getPhone());
+				ps.setObject(4, orders.getUid());
+				ps.setObject(5, orders.getName());
 				return ps;
 			}
 			
 		}, kh);
 		return kh.getKey().intValue();
-		/*jt.update(sql,
-				orders.getTotal(),
-				orders.getState(),
-				orders.getAddr(),
-				orders.getPhone(),
-				orders.getUid(),
-				orders.getName());*/
+		
 	}
 	
 	/**
@@ -57,13 +51,13 @@ public class OrdersDao extends BaseDao{
 	public void insertItems(Orders orders) {
 		String sql = "INSERT INTO orderitem SELECT\n" +
 				"	NULL,\n" +
+				"	a.count * b.fprice,\n" +
 				"	a.count,\n" +
-				"	a.count * b.shop_price,\n" +
-				"	a.pid,\n" +
+				"	a.fid,\n" +
 				"	?\n" +
 				"FROM\n" +
 				"	cart a\n" +
-				"JOIN product b ON a.pid = b.pid\n" +
+				"JOIN fruit b ON a.fid = b.fid\n" +
 				"WHERE\n" +
 				"	a.uid = ?";
 		jt.update(sql, orders.getOid(), orders.getUid());
@@ -72,7 +66,7 @@ public class OrdersDao extends BaseDao{
 	public List<Map<String,Object>> selectOrders(Integer uid) {
 		return jt.queryForList("select * from orders a "
 				+ "left join orderitem b on a.oid=b.oid"
-				+ " left join product c on b.pid=c.pid "
+				+ " left join fruit c on b.fid=c.fid "
 				+ "where a.uid=?", uid);
 	}
 	

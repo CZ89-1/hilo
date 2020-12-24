@@ -29,6 +29,8 @@
         <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
         <title>Hilo - Organic Food Shop HTML Template</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
     </head>
     <body>
         <!-- Pre Loader -->
@@ -458,22 +460,22 @@
         <!-- Nav Bottom Area End -->
 
         <!-- Banner Slider Area -->
-        <div class="banner-slider-area">
+        <div class="banner-slider-area" id="app1">
             <div class="banner-slider owl-carousel owl-theme">
                 <div class="container-fluid">
-                    <div class="banner-slider-item">
+                    <div class="banner-slider-item" v-for="g in gfruits">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
                                 <div class="banner-slider-img">
-                                    <img src="assets/images/home-two/home-two1.png" alt="Banner Images">
+                                    <img :src="g.fImage" alt="Banner Images">
                                 </div>
                             </div>
 
                             <div class="col-lg-5">
                                 <div class="banner-slider-content">
-                                    <span>PURE AND NATURAL</span>
-                                    <h2>100% Pure Organic & Fresh Meat</h2>
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscins elitr, seddiams nonumy eirmod.</p>
+                                    <span>{{g.fname}}</span>
+                                    <h2>{{g.fdesc}}</h2>
+                                    <p></p>
                                     <a href="#" class="default-btn btn-bg-two border-radius-50">Shop Now</a>
                                 </div>
                             </div>
@@ -481,49 +483,32 @@
                     </div>
                 </div>
 
-                <div class="container-fluid">
-                    <div class="banner-slider-item">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <div class="banner-slider-img">
-                                    <img src="assets/images/home-two/home-two2.png" alt="Banner Images">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-5">
-                                <div class="banner-slider-content">
-                                    <span>PURE AND NATURAL</span>
-                                    <h2>100% Pure Organic & Fresh Fruits</h2>
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscins elitr, seddiams nonumy eirmod.</p>
-                                    <a href="#" class="default-btn btn-bg-two border-radius-50">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid">
-                    <div class="banner-slider-item">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <div class="banner-slider-img">
-                                    <img src="assets/images/home-two/home-two3.png" alt="Banner Images">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-5">
-                                <div class="banner-slider-content">
-                                    <span>PURE AND NATURAL</span>
-                                    <h2>100% Pure Organic & Fresh Vegetable</h2>
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscins elitr, seddiams nonumy eirmod.</p>
-                                    <a href="#" class="default-btn btn-bg-two border-radius-50">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
+         <script type="text/javascript">
+                         var vue=new Vue({
+                    	  el:"#app1",
+                    	  data:{
+                    		  fruits:[],
+                    		  gfruits:[],
+                    		  tfruits:[]
+                    	  },
+                    	  created(){
+                    		  axios.get("fruitsP").then(res=>{
+                    			  this.fruits=res.data;
+                    		  }),
+                    		  axios.get("fruitsG").then(res=>{
+                    			  this.gfruits=res.data;
+                    		  }),
+                    		  axios.get("fruitsT").then(res=>{
+                    			  this.tfruits=res.data;
+                    		  })
+                    	  }
+                      })
+                    
+                    
+                    </script>
         <!-- Banner Slider Area End -->
 
         <!-- Popular Product Area -->

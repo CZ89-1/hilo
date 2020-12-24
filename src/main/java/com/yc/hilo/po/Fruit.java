@@ -1,14 +1,34 @@
 package com.yc.hilo.po;
 
+import java.util.Date;
+
 public class Fruit implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	private Integer fid;
 	private String fname;
 	private Double fprice;
 	private String fImage;
 	private String fdesc;
 	private Double fnprice;
+	private Date fdate;
+	private Integer guanggao;
 	
+	
+	
+	
+	public Integer getGuanggao() {
+		return guanggao;
+	}
+	public void setGuanggao(Integer guanggao) {
+		this.guanggao = guanggao;
+	}
+	public Date getFdate() {
+		return fdate;
+	}
+	public void setFdate(Date fdate) {
+		this.fdate = fdate;
+	}
 	public Double getFnprice() {
 		return fnprice;
 	}
