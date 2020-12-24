@@ -27,7 +27,13 @@ public class FruitsDao extends BaseDao{
 			f.setFname(rs.getString("fname"));
 			f.setFprice(rs.getDouble("fprice"));
 			f.setFnprice(rs.getDouble("fnprice"));
+			f.setCid(rs.getInt("cid"));
 			return f;
 		}
 	};
+
+	public List<Fruit> queryFruitByCid(int cid) {
+		String sql="select *from fruit where cid=? limit 0,12";
+		return jt.query(sql, FruitRowMapper,cid);
+	}
 }

@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <title>Hilo - Organic Food Shop HTML Template</title>
 </head>
 <body>
@@ -352,10 +354,12 @@ Português
 </div>
 </div>
 </div>
+
 <div class="side-nav-cart">
 <a href="#"><i class='bx bx-cart'></i></a>
 <span>1</span>
 </div>
+
 </div>
 </div>
 </div>
@@ -392,6 +396,7 @@ Português
 <div class="row">
 <div class="col-lg-3">
 <div class="product-side-bar">
+
 <div class="search-widget">
 <form class="search-form">
 <input type="search" class="form-control" placeholder="Search...">
@@ -400,6 +405,8 @@ Português
 </button>
 </form>
 </div>
+
+
 <div class="product-side-bar-widget">
 <h3 class="title">Prices Range</h3>
 <form class="price-range-content">
@@ -415,12 +422,15 @@ Português
 </div>
 </form>
 </div>
+
+
 <div class="product-side-bar-widget">
 <h3 class="title">Product Categories</h3>
 <div class="product-side-categories">
+
 <ul>
 <li class="active">
-<a href="#">All Categories & Items</a>
+<a href="shop-left-sidebar.html">All Categories & Items</a>
 </li>
 <li>
 <a href="#">Cooking & Baking</a>
@@ -444,17 +454,21 @@ Português
 <a href="#">Home & Kitchen Appliance</a>
 </li>
 </ul>
+
 </div>
 </div>
+
+
+
 <div class="product-side-bar-widget">
 <h3 class="title">Prices</h3>
 <div class="product-side-categories">
 <ul>
 <li class="active">
-<a href="#">$0-$50</a>
+<a href="#">0-50元</a>
 </li>
 <li>
-<a href="#">$51-$100</a>
+<a href="#">51-100元</a>
 </li>
 <li>
 <a href="#">$101-$150</a>
@@ -477,11 +491,16 @@ Português
 </ul>
 </div>
 </div>
-<div class="product-side-bar-widget">
-<h3 class="title">High Rated Product</h3>
-<div class="product-popular-post">
-<article class="item">
-<a href="news-details.html" class="thumb">
+
+
+
+
+<div id="xiaol" class="product-side-bar-widget">
+<h3 class="title">高销量产品</h3>
+
+<div class="product-popular-post" >
+<article v-for="c in counts" class="item">
+<a href="'details.html#'+c.fid" class="thumb">
 <span class="full-image cover bg1" role="img"></span>
 </a>
  <div class="info">
@@ -493,56 +512,40 @@ Fresh Organic Meat
 <p>$12.0 <del>$15.5</del></p>
 </div>
 </article>
-<article class="item">
-<a href="news-details.html" class="thumb">
-<span class="full-image cover bg2" role="img"></span>
-</a>
-<div class="info">
-<h4 class="title-text">
-<a href="news-details.html">
-Fresh Pineapple
-</a>
-</h4>
-<p>$3.50 <del>$4.0</del></p>
-</div>
-</article>
-<article class="item">
-<a href="news-details.html" class="thumb">
-<span class="full-image cover bg3" role="img"></span>
-</a>
-<div class="info">
-<h4 class="title-text">
-<a href="news-details.html">
-Fresh Banana
-</a>
-</h4>
-<p>$1.2 <del>$1.5</del></p>
-</div>
-</article>
-<article class="item">
-<a href="news-details.html" class="thumb">
-<span class="full-image cover bg4" role="img"></span>
-</a>
-<div class="info">
-<h4 class="title-text">
-<a href="news-details.html">
-Rear Organic Saffron
-</a>
-</h4>
-<p>$124.0</p>
-</div>
-</article>
+
 </div>
 </div>
+
+<script type="text/javascript">
+
+var v1=new Vue({
+	el:"#xiaol",
+	data:{
+		counts:[]
+	},
+	created:{
+		axios.get("counts").then(res=>{
+			this.counts=res.data;
+		})
+	}
+})
+
+</script>
+
+
+
+
 </div>
 </div>
 <div class="col-lg-9">
 <div class="row align-items-center">
+
 <div class="col-lg-6 col-md-12">
 <div class="product-detls-image">
 <img src="assets/images/products/shop-details-img.png" alt="Image">
 </div>
 </div>
+
 <div class="col-lg-6 col-md-12">
 <div class="product-desc">
 <h3>Black Fresh Berry</h3>
@@ -744,7 +747,10 @@ Email:
 <div class="section-title">
 <h2>Related Products</h2>
 </div>
-<div class="row pt-45">
+<div id="deta" class="row pt-45">
+
+
+
 <div class="col-lg-4 col-sm-6">
 <div class="product-item">
  <div class="product-img">
@@ -773,140 +779,16 @@ Email:
 </div>
 </div>
 </div>
-<div class="col-lg-4 col-sm-6">
-<div class="product-item">
-<div class="product-img">
-<a href="shop-details.html">
-<img src="assets/images/products/products-img2.png" alt="Product Images">
-</a>
-<div class="product-item-tag">
-<h3>-22%</h3>
-</div>
-<ul class="product-item-action">
-<li><a href="#"><i class='bx bx-repost'></i></a></li>
-<li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-<li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-</ul>
-</div>
-<div class="content">
-<h3><a href="shop-details.html">Fresh Carrots</a></h3>
-<div class="rating">
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-</div>
-<span>$5.0/Kg <del>$7.0/Kg</del></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-sm-6">
-<div class="product-item">
-<div class="product-img">
-<a href="shop-details.html">
-<img src="assets/images/products/products-img3.png" alt="Product Images">
-</a>
-<div class="product-item-tag">
-<h3>New</h3>
-</div>
-<ul class="product-item-action">
-<li><a href="#"><i class='bx bx-repost'></i></a></li>
-<li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-<li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-</ul>
-</div>
-<div class="content">
-<h3><a href="shop-details.html">Green Cucumber</a></h3>
-<div class="rating">
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-</div>
-<span>$2.0/Kg <del>$3.0/Kg</del></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-sm-6">
-<div class="product-item">
-<div class="product-img">
-<a href="shop-details.html">
-<img src="assets/images/products/products-img4.png" alt="Product Images">
-</a>
-<div class="product-item-tag">
-<h3>-10%</h3>
-</div>
-<ul class="product-item-action">
-<li><a href="#"><i class='bx bx-repost'></i></a></li>
-<li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-<li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-</ul>
-</div>
-<div class="content">
-<h3><a href="shop-details.html">Fresh Pineapple</a></h3>
-<div class="rating">
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-</div>
-<span>$2.0/Kg <del>$3.0/Kg</del></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-sm-6">
-<div class="product-item">
-<div class="product-img">
-<a href="shop-details.html">
- <img src="assets/images/products/products-img5.png" alt="Product Images">
-</a>
-<ul class="product-item-action">
-<li><a href="#"><i class='bx bx-repost'></i></a></li>
-<li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-<li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-</ul>
-</div>
-<div class="content">
-<h3><a href="shop-details.html">Olive Oil</a></h3>
-<div class="rating">
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-</div>
-<span>$16.0/Kg <del>$13.0/Kg</del></span>
-</div>
-</div>
-</div>
-<div class="col-lg-4 col-sm-6">
-<div class="product-item">
-<div class="product-img">
-<a href="shop-details.html">
-<img src="assets/images/products/products-img6.png" alt="Product Images">
-</a>
-<ul class="product-item-action">
-<li><a href="#"><i class='bx bx-repost'></i></a></li>
-<li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
-<li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
-</ul>
-</div>
-<div class="content">
-<h3><a href="shop-details.html">Natural Milk</a></h3>
-<div class="rating">
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-<i class='bx bxs-star'></i>
-</div>
-<span>$6.0/Kg <del>$9.0/Kg</del></span>
-</div>
-</div>
-</div>
+
+<script type="text/javascript">
+var v2=new Vue({
+	el:"#deta",
+	data:{
+		
+	}
+})
+</script>
+
 </div>
 </div>
 </div>

@@ -12,6 +12,8 @@ import com.yc.hilo.po.Fruit;
 
 @RestController
 public class FruitsAction {
+	
+	
   @Resource
   private FruitsDao fd;
   
@@ -19,5 +21,11 @@ public class FruitsAction {
   public List<Fruit> queryFruits(){
 	  return fd.SelectFruits();
   }
+  
+  @RequestMapping(path="fruits.s",params = "op=queryFruits")
+	public List<Fruit> queryFruitByCid(int cid){
+		return fd.queryFruitByCid(cid);
+		
+	}
 	
 }
