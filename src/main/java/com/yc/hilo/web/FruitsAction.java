@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,12 +46,13 @@ public class FruitsAction {
 		return fd.queryFruitById(fid);
 
   }
-  @RequestMapping(path="fruits.s",params = "op=queryFruits")
-	public List<Fruit> queryFruitByCid(int cid){
-		return fd.queryFruitByCid(cid);
-
+  
+  @RequestMapping(path="fruitss")
+	public List<Fruit> queryFruit(int pageNum,int pageSize) {
+		return fd.queryFruit(pageNum,pageSize); 
 	}
   
+
   //后台添加商品
   @RequestMapping("createFruit")
 	public Result create(Fruit f) {
@@ -77,4 +77,19 @@ public class FruitsAction {
 		return fd.queryFruit();
 	}
 	
+//  @RequestMapping(path="search.s")
+//  public List<Fruit> queryFruitByfname(String fname){
+//	  return fd.queryFruitByFname(fname);
+//  }
+  
+  @RequestMapping(path="fruit.s",params = "op=queryFruitByCid")
+	public List<Fruit> queryProductByCid(int cid,int pageNum,int pageSize){
+		return fd.queryFruitByCid(cid,pageNum,pageSize);
+	}
+  
+  @RequestMapping(path="fruit",params = "op=queryCount")
+  public int getFruitsTotalNum() {
+	  return fd.getFruitsTotalNum();
+  }
+
 }

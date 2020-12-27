@@ -3,12 +3,14 @@ package com.yc.hilo.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 
 import com.yc.hilo.po.Fruit;
+import com.yc.hilo.po.Result;
 
 @Repository
 public class FruitsDao extends BaseDao{
@@ -70,9 +72,16 @@ public class FruitsDao extends BaseDao{
 		}
 	};
 
-	public List<Fruit> queryFruitByCid(int cid) {
-		String sql="select * from fruit where cid=? limit 0,12";
-		return jt.query(sql, FruitRowMapper,cid);
+	public List<Fruit> queryFruitByCid(int cid, int pageNum, int pageSize) {
+		String sql="select * from fruit where cid=?";
+		if(pageNum==1) {
+			sql += " limit 0,?";
+			return jt.query(sql,FruitRowMapper,cid,pageSize);
+		}else {
+			sql += " limit ?,?";
+			return jt.query(sql,FruitRowMapper,cid,pageSize*(pageNum-1),pageSize);
+		}
+		
 	}
 	
 	public void insert(Fruit f) {
@@ -94,4 +103,30 @@ public class FruitsDao extends BaseDao{
 		return jt.query(sql,FruitRowMapper);
 		
 	}
+
+	
+//	public List<Fruit> queryFruitByFname(String fname) {
+//		String sql="select * from fruit where fname like ?";
+//		return jt.query(sql,FruitRowMapper,fname);
+//	}
+	public int getFruitsTotalNum() {
+			String sql = "select count(fid) from fruit";
+			return jt.queryForObject(sql,Integer.class);
+		}
+	public List<Fruit> queryFruit (int pageNum, int pageSize) {
+		String sql="select * from fruit";
+		if(pageNum==1) {
+			sql += " limit 0,?";
+			return jt.query(sql,FruitRowMapper,pageSize);
+		}else {
+			sql += " limit ?,?";
+			return jt.query(sql,FruitRowMapper,pageSize*(pageNum-1),pageSize);
+		}
+	
+	}
+	
+	
+	
+
+
 }
