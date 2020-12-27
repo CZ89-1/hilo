@@ -62,4 +62,10 @@ public class CartAction {
 		User user = (User) session.getAttribute("loginedUser");
 		return cdao.selectCart(user.getUid());
 	}
+	
+	@RequestMapping("queryCartCount")
+	public int getCartCount() {
+		return cdao.getCartCount();
+	}
+	
 }
