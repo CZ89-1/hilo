@@ -24,7 +24,7 @@ public class OrdersDao extends BaseDao{
 	 */
 	
 	public int insertOrders(Orders orders) {
-		String sql = "insert into orders values(null,?,?,now(),?,?,?)";
+		String sql = "insert into orders values(null,?,?,now(),?,?,?,0)";
 		KeyHolder kh = new GeneratedKeyHolder();
 		jt.update(new PreparedStatementCreator() {
 			@Override
@@ -69,6 +69,17 @@ public class OrdersDao extends BaseDao{
 				+ " left join fruit c on b.fid=c.fid "
 				+ "where a.uid=?", uid);
 	}
+	
+	public void sureOrder(int oid) {
+		String sql="update orders set state=3 where oid=?";
+		jt.update(sql,oid);
+	}
+	
+	public List<Map<String,Object>> queryOrderstate(int state) {
+		String sql="SELECT * from orders a JOIN orderitem b JOIN fruit c WHERE a.oid=b.oid AND b.fid=c.fid and state=?";
+		return jt.queryForList(sql,state);
+	}
+	
 	
 	
 

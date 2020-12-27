@@ -73,6 +73,7 @@ public class UserBiz {
 		Utils.checkNull(user.getName(), "姓名不能为空");
 		// 同名验证
 		User dbuser = udao.selectByName(user.getUsername());
+		
 		if(dbuser != null ) {
 			throw new BizException("该用户名已经被注册");
 		}

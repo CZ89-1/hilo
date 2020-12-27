@@ -43,6 +43,12 @@ public class FruitsDao extends BaseDao{
 		
 	}
    
+   public void delFruit(int fid) {
+		String sql = "delete from fruit where fid=?";
+		jt.update(sql, fid);
+		
+	}
+   
    
    
    private RowMapper<Fruit> FruitRowMapper = new RowMapper<Fruit>() {
@@ -58,13 +64,34 @@ public class FruitsDao extends BaseDao{
 			f.setFnprice(rs.getDouble("fnprice"));
 			f.setGuanggao(rs.getInt("guanggao"));
 			f.setFdate(rs.getDate("fdate"));
-
+            f.setHot(rs.getInt("hot"));
+            f.setCid(rs.getInt("cid"));
 			return f;
 		}
 	};
 
 	public List<Fruit> queryFruitByCid(int cid) {
-		String sql="select *from fruit where cid=? limit 0,12";
+		String sql="select * from fruit where cid=? limit 0,12";
 		return jt.query(sql, FruitRowMapper,cid);
+	}
+	
+	public void insert(Fruit f) {
+		String sql = "insert into fruit values(null,?,?,?,?,?,?,now(),?,?)";
+		jt.update(sql,
+		f.getFname(),
+		f.getFprice(),
+		f.getFnprice(),
+		f.getfImage(),
+		f.getFdesc(),
+		f.getHot(),
+		f.getGuanggao(),
+		f.getCid()
+		);
+		
+	}
+	public List<Fruit> queryFruit(){
+		String sql="select * from fruit";
+		return jt.query(sql,FruitRowMapper);
+		
 	}
 }

@@ -11,6 +11,16 @@ public class Orders implements java.io.Serializable{
 	private String phone;
 	private Integer uid;
 	private String name;
+	private Integer state;
+	
+	
+	
+	public Integer getState() {
+		return state;
+	}
+	public void setState(Integer state) {
+		this.state = state;
+	}
 	public Integer getOid() {
 		return oid;
 	}

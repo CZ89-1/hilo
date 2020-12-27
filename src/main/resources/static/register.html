@@ -439,7 +439,7 @@ placeholder="Enter Your Password" v-model="user.password">
 <div class="form-group">
 <span class="requiredField">*</span>确认密码:
 <input type="text" class="form-control" required data-error="Please enter your Repassword" 
-placeholder="Enter Your Repassword" >
+placeholder="Enter Your Repassword" v-model="repassword">
 </div>
 </div>
 
@@ -499,6 +499,7 @@ title="点击更换验证码" @click="changeImg()">
 			 phone:"",
 			 
 		 },
+		 repassword:"",
 		 vcode:"",
 	     imgsrc:"verifyCode.s?a="
 	  
@@ -514,6 +515,7 @@ title="点击更换验证码" @click="changeImg()">
 				params.append("name",this.user.name);
 				params.append("email",this.user.email);
 				params.append("phone",this.user.phone);
+				params.append("repassword",this.repassword);
 				params.append("vcode",this.vcode);
 				axios.post("reg.s",params).then(res=>{
 					alert(res.data.msg);

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品信息</title>
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>商品列表</h2>
+	<p>商品信息</p>
+	<div style="margin:20px 0;"></div>
+	<div data-options="region:'north'" style="height: 50px;">
+			
+			<div style="height: 50px; margin: 10px">
+				<input class="easyui-textbox" label="名称:" style="width: 200px"
+					id="pname"> 
+					<input class="easyui-combobox" label="分类:"
+					style="width: 200px" id="cid"
+					data-options="url:'../../category.s?op=queryCategory', valueField:'cid', textField:'cname'">
+				<input class="easyui-checkbox" label="热卖:" id="hot" value=1>
+				
+				<a href="#" class="easyui-linkbutton"
+					data-options="iconCls:'icon-reload'" onclick="reset()">重置</a> <a
+					id="btn" href="#" class="easyui-linkbutton"
+					data-options="iconCls:'icon-add'" onclick="edit()"
+					style="float: right;">添加</a> <a id="btn" href="#"
+					class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+					onclick="query()">查询</a>
+			</div>
+		</div>
+	<table class="easyui-datagrid" title="商品信息" style="width:1200px;height:700px"
+			data-options="
+			   url:'../../queryFruit',
+			   method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'fid',width:80,align:'center'">编号</th>
+				<th data-options="field:'fname',width:100,align:'center'">商品名称</th>
+				<th data-options="field:'fprice',width:80,align:'center'">商场价格</th>
+				
+				<th data-options="field:'fImage',width:100,align:'center',formatter:a">图片</th>
+				<th data-options="field:'fdesc',width:700,align:'center'">描述</th>
+				<th data-options="field:'hot',width:60,align:'center'">热卖</th>
+				
+				
+			</tr>
+		</thead>
+	</table>
+	<script type="text/javascript">
+	  function a(value,obj,row){
+		 return "<img width=100% src='../../"+value+"'>";
+	  }
+	</script>
+
+</body>
+</html>

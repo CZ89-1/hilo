@@ -25,6 +25,12 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
+<style type="text/css">
+ul.pagination li{
+display: inline;
+width:500px;
+}
+</style>
 <title>Hilo - Organic Food Shop HTML Template</title>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
@@ -396,16 +402,36 @@ Português
 <form>
 <div class="cart-wraps" >
 <div class="cart-table table-responsive">
+                <div class="step step1">
+				
+				<ul class="pagination">
+					<li @click="allorders()">全部订单</li>
+					<li @click="queryorders(0)">待付款</li>
+					<li @click="queryorders(1)">待发货</li>
+					<li @click="queryorders(2)">待收货</li>
+					<li @click="queryorders(3)">评价</li>
+					<li @click="queryorders(4)" >退款/售后</li>
+				</ul>
+				
+			</div>
 <table class="table table-bordered" v-for="o in olist">
 
 
 <thead>
-<tr>
-						<th colspan="5">订单号:{{o.oid}} 金额:<font color="red">{{o.total}} </font>
-							状态 : <a href="404.html?oid=73"><font color="red">付款</font></a>
-
+           <tr > <!-- 状态: 0未支付,1已支付,2已发货,3已收货,4已评价,5已退货 -->
+						<th colspan="6">订单号:{{o.oid}} 金额:<font color="red">{{o.total}} </font>
+							状态 : 
+							<span v-show="o.state==0"><a :href="'pay.html#'+o.oid">
+							<font color="red">去付款</font></a></span>
+							<span v-show="o.state==1" style="color:blue;">待发货</span>
+							<span v-show="o.state==2"  style="color:green;">待收货</span>
+							<span v-show="o.state==3">已收货</span>
+							<span v-show="o.state==4">已评价</span>
+							<span v-show="o.state==5">已退货</span>
+							
+							<span v-if="o.state>0&&o.state<3"><a href="olist.html" @click="sure(o.oid)"  type="button" style="float:right;padding-right:50px;color:red;">确认收货</a></span>
 						</th>
-					</tr>
+			</tr>
 <tr >
 <th scope="col">图片</th>
 <th scope="col">名称</th>
@@ -462,12 +488,39 @@ Português
 			var v1 = new Vue({
 				el :"#app1",
 				data:{
-					olist:[]
+					olist:[],
+					state:"",
 				},
 				created(){
 					axios.get("queryOlist").then(res=>{
 						this.olist = res.data;
 					})
+				},
+				
+				methods:{
+					allorders(){
+						axios.get("queryOlist").then(res=>{
+							this.olist = res.data;
+						})
+					},
+					queryorders(type){
+						this.state=type;
+						axios.get("order.s?queryOrdersState&state="+this.state).then(res=>{
+							this.olist=res.data;
+						
+						});
+					
+					},
+					sure(oid){
+						if(confirm("请确认是否要确认收货 " )){
+							axios.get("order.s?sureOrder&oid="+oid).then(res=>{
+								alert(res.data.msg);
+							}),
+							axios.get("queryOlist").then(res=>{
+								this.olist = res.data;
+							})
+					   }
+					}
 				}
 				
 			})

@@ -8,10 +8,10 @@ server:
 
 spring:
    datasource:
-      url: jdbc:mysql://127.0.0.1:3306/hilofruits
+      url: jdbc:mysql://188.131.166.87:3306/hilofruits
       username: root
       # 配置项之间可以有空行
-      password: a
+      password: Sxq1&Liujun2
       # yml 支持驼峰命名 + -号分隔符
       driverClassName: com.mysql.jdbc.Driver
       #driver-class-name: com.mysql.jdbc.Driver

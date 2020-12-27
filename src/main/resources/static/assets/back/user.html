@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>用户管理</title>
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>用户列表</h2>
+	<p>用户信息</p>
+	<div style="margin:20px 0;"></div>
+	
+	<table class="easyui-datagrid" title="商品信息" style="width:1200px;height:700px"
+			data-options="
+			   url:'../../queryUser',
+			   method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'uid',width:80,align:'center'">编号</th>
+				<th data-options="field:'username',width:100,align:'center'">用户名</th>
+				<th data-options="field:'password',width:80,align:'center'">密码</th>
+				<th data-options="field:'name',width:100,align:'center'">姓名</th>
+				<th data-options="field:'email',width:700,align:'center'">电子邮箱</th>
+				<th data-options="field:'phone',width:60,align:'center'">电话</th>
+				
+			</tr>
+		</thead>
+	</table>
+
+</body>
+</html>

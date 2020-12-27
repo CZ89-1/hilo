@@ -2,6 +2,7 @@ package com.yc.hilo.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -58,11 +59,16 @@ public class UserAction {
 	}
 	
 	@RequestMapping("reg.s")
-	public Result reg(User user,String vcode,HttpSession session) throws SQLException {
+	public Result reg(User user,String vcode,String repassword,HttpSession session) throws SQLException {
 		try {
 			String svcode = (String) session.getAttribute("vcode");
+			
+			
 			if(!vcode.equalsIgnoreCase(svcode)) {
 				throw new BizException("验证码错误");
+			}
+			if(!repassword.equals(user.getPassword())) {
+				throw new BizException("密码不一致");
 			}
 			udao.register(user);
 			return new Result(1, "注册成功");
@@ -70,6 +76,12 @@ public class UserAction {
 			e.printStackTrace();
 			return new Result(0, e.getMessage());
 		} 
+	}
+	
+	@RequestMapping("queryUser")
+	public List<User> queryAllUser(){
+		return udao.selectAllUser();
+		
 	}
 
 	

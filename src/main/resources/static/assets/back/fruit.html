@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>添加商品</title>
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+	
+	<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>商品信息</h2>
+	<div style="margin:20px 0;"></div>
+	
+	<div class="easyui-panel" title="商品信息" style="width:100%;max-width:400px;padding:30px 60px;">
+		<form id="ff" method="post" action="../../createFruit">
+			
+			
+			
+			
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="fname" style="width:100%" 
+					data-options="label:'名称:',">
+			</div>
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="fImage" style="width:100%" 
+					data-options="label:'图片:'," >
+			    
+			</div>
+			
+			
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="fprice" style="width:100%"
+					data-options="label:'现价:',">
+			</div>
+			
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="fnprice" style="width:100%"
+					data-options="label:'原价:',">
+			</div>
+			
+			<div style="margin-bottom:20px">
+				<input class="easyui-textbox" name="fdesc" style="width:100%;height:60px" 
+					data-options="label:'描述:',multiline:true">
+			</div>
+			<div style="margin-bottom:20px">
+				<select class="easyui-combobox" name="hot" label="热卖" style="width:100%">
+					<option value="1">热卖</option>
+					<option value="0">非热卖</option>
+					</select>
+			</div>
+			
+			<div style="margin-bottom:20px">
+				<select class="easyui-combobox" name="guanggao" label="广告" style="width:100%">
+					<option value="1">广告</option>
+					<option value="0">非广告</option>
+					</select>
+			</div>
+			
+			<div style="margin-bottom:20px">
+				<select class="easyui-combobox" name="cid" label="商品类型" style="width:100%">
+					<option value="1">牛肉</option>
+					<option value="2">蔬菜</option>
+					<option value="3">水果</option>
+					<option value="4">其他</option>
+					
+					</select>
+			</div>
+			
+		</form>
+		<div style="text-align:center;padding:5px 0">
+			<a href="javascript:void(0)" class="easyui-linkbutton" 
+					onclick="submitForm()" style="width:80px">保存</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" 
+					onclick="clearForm()" style="width:80px">重置</a>
+		</div>
+	</div>
+	<script>
+		function submitForm(){
+			// easyui 会提交表单中所有带 name 的字段(输入框)的值
+			$('#ff').form('submit',{
+				success(res){
+					// res 应该是 json 格式的字符串
+					var result = JSON.parse(res);
+					alert(result.msg);
+				}
+			});
+		}
+		function clearForm(){
+			$('#ff').form('clear');
+		}
+	</script>
+</body>
+</html>

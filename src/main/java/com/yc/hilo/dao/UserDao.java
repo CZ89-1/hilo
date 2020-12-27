@@ -2,6 +2,7 @@ package com.yc.hilo.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -58,6 +59,14 @@ public class UserDao extends BaseDao {
 			return rs.next() ? UserRowMapper.mapRow(rs, -1) : null;
 		}, username);
 	}
+	
+	public List<User> selectAllUser() {
+		String sql="select * from user";
+		return jt.query(sql,UserRowMapper);
+	}
+	
+	
+	
 	
 	private RowMapper<User> UserRowMapper = new RowMapper<User>() {
 

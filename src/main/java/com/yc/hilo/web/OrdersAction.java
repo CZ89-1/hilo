@@ -51,5 +51,17 @@ public class OrdersAction {
 		
 	}
 	
+	@RequestMapping(path="order.s" ,params = "sureOrder")
+	public Result sureOrder(int oid,HttpSession session) {
+		odao.sureOrder(oid);
+		return Result.success("确认收货成功!");
+		
+	}
+	
+	@RequestMapping(path="order.s" ,params = "queryOrdersState")
+	public List<?>queryOrderstate(int state,HttpSession session){
+		return odao.queryOrderstate(state);
+	}
+	
 
 }
