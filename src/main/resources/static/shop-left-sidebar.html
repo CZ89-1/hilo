@@ -137,9 +137,9 @@ ul.pagination li a {
 								</div>
 							</div>
 							<div id="userdd"class="side-nav-cart">
-<a href="cart.html"><i class='bx bx-cart'></i></a>
-<span>{{count}}</span>
-</div>
+								<a href="cart.html"><i class='bx bx-cart'></i></a>
+								<span>{{count}}</span>
+								</div>
 								<script type="text/javascript">
                                  var v8 = new Vue({
                                 	el:"#userdd",
@@ -181,7 +181,7 @@ ul.pagination li a {
 										<button class="btn dropdown-toggle" type="button"
 											id="dropdownMenuButton2" data-toggle="dropdown"
 											aria-haspopup="true" aria-expanded="false">
-											Language <i class='bx bx-chevron-down'></i>
+											语言 <i class='bx bx-chevron-down'></i>
 										</button>
 										<div class="dropdown-menu"
 											aria-labelledby="dropdownMenuButton2">
@@ -258,26 +258,27 @@ ul.pagination li a {
 							</form>
 						</div>
 						<script type="text/javascript">
-var v4=new Vue({
-	el:"#seap",
-	data:{
-		fname:""
-	},
-	methods:{
-		searchp(){
-			var params = new URLSearchParams();
-			params.append("fname",this.fname);
-			axios.post("search.s",params).then(res=>{
-				location.href="search-page.html"
-			})
-		},
-	}
-})
-</script>
-
-
-
-
+							var v4=new Vue({
+							el:"#seap",
+							data:{
+								fname:""
+							},
+							methods:{
+								searchp(){
+									var params = new URLSearchParams();
+									params.append("fname",this.fname);
+									axios.post("queryfnames",params).then(res=>{
+										alert(res.data.msg);
+										if(res.data.code==1){
+											location.href="search-page.html#"+this.fname;
+										}
+									}).catch(error=>{
+										alert("系统错误，请联系管理员");
+									})
+								}
+							}
+						})
+						</script>
 						<div class="product-side-bar-widget">
 							<h3 class="title">价格范围：</h3>
 							<form class="price-range-content">
