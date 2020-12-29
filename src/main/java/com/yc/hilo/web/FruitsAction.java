@@ -77,10 +77,26 @@ public class FruitsAction {
 		return fd.queryFruit();
 	}
 	
-//  @RequestMapping(path="search.s")
-//  public List<Fruit> queryFruitByfname(String fname){
-//	  return fd.queryFruitByFname(fname);
-//  }
+   @RequestMapping(path="queryfnames")
+   public Result queryFruitByfname(String fname){
+	   System.out.println("fname:"+fname);
+  	  if(fname.equals("")) {
+  		  return new Result(0,"请输入你想搜索的物品");
+  	  }else {
+  		  List<?> list = fb.queryFruitByfname(fname);
+  		  System.out.println(list);
+  		  if(list.isEmpty()) {
+  			  return new Result(0,"没有搜索到您想要的商品");
+  		  }else {
+  			  return new Result(1,"搜索成功");
+  		  }
+  	  }
+   }
+   @RequestMapping(path="search.s")
+   public List<Fruit> queryByfname(String fname){
+	   return fd.queryByfname(fname);
+   }
+ 
   
   @RequestMapping(path="fruit.s",params = "op=queryFruitByCid")
 	public List<Fruit> queryProductByCid(int cid,int pageNum,int pageSize){

@@ -81,4 +81,9 @@ public class CartDao extends BaseDao {
 		}
 	};
 
+	public int getCartCount() {
+		String sql="select count(ccid) from cart";
+		return jt.queryForObject(sql,Integer.class);
+	}
+
 }

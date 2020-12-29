@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <title>Hilo - Organic Food Shop HTML Template</title>
 </head>
 <body>
@@ -140,10 +142,28 @@ Português
 </div>
 </div>
 </div>
-<div class="side-nav-cart">
-<a href="#"><i class='bx bx-cart'></i></a>
-<span>1</span>
+<div id="userdd"class="side-nav-cart">
+<a href="cart.html"><i class='bx bx-cart'></i></a>
+<span>{{count}}</span>
 </div>
+								<script type="text/javascript">
+                                 var v8 = new Vue({
+                                	el:"#userdd",
+                                	data:{
+                                		count:""
+                                	},created(){
+                                		
+                    						axios.get("getLoginedUser").then(res=>{
+                    							if( res.data && res.data.uid ){
+                    							axios.get("queryCartCount").then(res=>{
+                    								this.count = res.data;
+                    							});
+                    							}
+                    					});
+                                		
+                    				}
+                                })
+                                </script>
 </div>
 </div>
 </nav>

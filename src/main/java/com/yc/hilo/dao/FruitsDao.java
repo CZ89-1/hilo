@@ -105,10 +105,11 @@ public class FruitsDao extends BaseDao{
 	}
 
 	
-//	public List<Fruit> queryFruitByFname(String fname) {
-//		String sql="select * from fruit where fname like ?";
-//		return jt.query(sql,FruitRowMapper,fname);
-//	}
+	public List<?> queryFruitByFname(String fname) {
+		System.out.println(fname);
+		String sql="select * from fruit where fname like concat('%',?,'%')";
+		return jt.queryForList(sql,fname);
+	}
 	public int getFruitsTotalNum() {
 			String sql = "select count(fid) from fruit";
 			return jt.queryForObject(sql,Integer.class);
@@ -124,9 +125,9 @@ public class FruitsDao extends BaseDao{
 		}
 	
 	}
-	
-	
-	
-
+	public List<Fruit> queryByfname(String fname) {
+		String sql="select *from fruit where fname like concat('%',?,'%')";
+		return jt.query(sql,FruitRowMapper,fname);
+	}
 
 }

@@ -142,10 +142,28 @@ Português
 </div>
 </div>
 </div>
-<div class="side-nav-cart">
+<div id="userdd"class="side-nav-cart">
 <a href="cart.html"><i class='bx bx-cart'></i></a>
-<span>1</span>
+<span>{{count}}</span>
 </div>
+								<script type="text/javascript">
+                                 var v8 = new Vue({
+                                	el:"#userdd",
+                                	data:{
+                                		count:""
+                                	},created(){
+                                		
+                    						axios.get("getLoginedUser").then(res=>{
+                    							if( res.data && res.data.uid ){
+                    							axios.get("queryCartCount").then(res=>{
+                    								this.count = res.data;
+                    							});
+                    							}
+                    					});
+                                		
+                    				}
+                                })
+                                </script>
 </div>
 </div>
 </nav>

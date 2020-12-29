@@ -1,5 +1,7 @@
 package com.yc.hilo.biz;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,7 +19,7 @@ public class FruitBiz {
 	
 	@Resource
 	private FruitsDao fd;
-	
+
 	@Transactional
 	public void create(Fruit f) throws BizException{
 		// 验证输入
@@ -30,6 +32,11 @@ public class FruitBiz {
 		
 		// 添加到数据库
 		fd.insert(f);
+	}
+
+	public List<?> queryFruitByfname(String fname) {
+		System.out.println(fname);
+		return fd.queryFruitByFname(fname);
 	}
 	
 }
