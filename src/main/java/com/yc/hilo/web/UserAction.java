@@ -63,7 +63,6 @@ public class UserAction {
 		try {
 			String svcode = (String) session.getAttribute("vcode");
 			
-			
 			if(!vcode.equalsIgnoreCase(svcode)) {
 				throw new BizException("验证码错误");
 			}
@@ -81,6 +80,17 @@ public class UserAction {
 	@RequestMapping("queryUser")
 	public List<User> queryAllUser(){
 		return udao.selectAllUser();
+		
+	}
+	
+	@RequestMapping(path="Users.s" ,params = "op=modify")
+	public Result Modif(String username,String password,String name,String email,String phone,HttpSession session) throws SQLException, BizException {
+		
+		User user = (User) session.getAttribute("loginedUser");
+		
+		udao.Modifs(user.getUid(), username, password, name, email, phone);
+		
+		return Result.success("修改信息成功!");
 		
 	}
 

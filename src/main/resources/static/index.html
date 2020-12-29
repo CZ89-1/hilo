@@ -46,7 +46,7 @@
 
         <!-- Top Header Start -->
         <header class="top-header top-header-bg">
-            <div class="container">
+            <div class="container" id="app0">
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-4">
                         <div class="top-header-social">
@@ -107,14 +107,43 @@
                             
                             <div class="top-header-right-item">
                                 <ul class="top-header-list">
-                                    <li><a href="my-account.html">我的账户</a></li>
-                                    <li><a href="log-in.html">登录</a></li>
+                                    <li><a href="per-infor.html">我的账户</a></li>
+                                    <li><a href="log-in.html" v-if=" user=='' ">登录</a>
+                                    <a v-else @click="logout()">退出</a>|
+						              <a v-if="user!=null">{{user.name}}</a>|
+						              
+						           </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+			var v2 = new Vue({
+				el:"#app0",
+				data:{
+					user:{}
+				},
+				created(){
+					axios.get("getLoginedUser").then(res=>{
+						this.user = res.data;
+					})
+				},
+				methods:{
+					logout(){
+						if(confirm("确定要退出登录?")){
+							axios.get("out.s").then(res=>{
+								//alert(res.data.msg);
+								location.href = "index.html";
+							});
+						}
+					}
+				}
+			})
+		
+		
+		</script>
         </header>
         <!-- Top Header End -->
 
@@ -295,7 +324,7 @@
                                 </div>
                                 <ul class="arrival-item-action">
                                     <li><a href="#"><i class='bx bx-repost'></i></a></li>
-                                    <li><a href="wishlist.html"><i class='bx bx-heart'></i></a></li>
+                                    <li><a @click="addWish(f.fid)"><i class='bx bx-heart'></i></a></li>
                                     <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
                                 </ul>
                             </div>
@@ -322,7 +351,24 @@
                     		  axios.get("fruitsN").then(res=>{
                     			  this.fruits=res.data;
                     		  })
+                    	  },
+                    	  methods:{
+                    		  addWish(fid){
+                    			  axios.get("getLoginedUser").then(res=>{
+                    			  if( res.data && res.data.uid ){
+          							axios.get("wish.s?addWish&fid="+fid).then(res=>{
+          								alert(res.data.msg);
+          							})
+                    			  }else {
+      								alert("你尚未登录");
+    								location.href = "log-in.html";
+    							}
+                    		});
+          						
+          					}
                     	  }
+                    		  
+                    	  
                       })
                     
                     
@@ -351,6 +397,7 @@
                                 <div class="trending-item" >
                                     <div class="trending-img">
                                         <a href="shop-details.html">
+                                        <a :href="'shop-details.html#'+f.fid">
                                             <img :src="f.fImage" alt="Product Images">
                                         </a>
                                         <div class="trending-item-tag">
@@ -386,7 +433,8 @@
                                 <div class="trending-side-item">
                                     <h3>{{g.fdesc}}</h3>
                                     <h3><a href="shop-details.html">{{g.fname}}</a></h3>
-                                    <a href="#" class="shop-btn">立即购买</a>
+                                    <a :href="'shop-details.html#'+g.fid" class="shop-btn">立即购买</a>
+                                   
                                     <img :src="g.fImage" alt="Images">
                                      <div class="trending-item-tag">
                                             <h3>广告</h3>
@@ -398,7 +446,7 @@
                                 <div class="trending-side-item-2">
                                     <h3>{{t.fdesc}}</h3>
                                     <h3><a href="shop-details.html">{{t.fname}}</a></h3>
-                                    <a href="#" class="shop-btn">立即购买</a>
+                                    <a :href="'shop-details.html#'+t.fid" class="shop-btn">立即购买</a>
                                     <img :src="t.fImage" alt="Images">
                                      <div class="trending-item-tag">
                                             <h3>优惠推荐</h3>

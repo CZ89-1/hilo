@@ -83,5 +83,27 @@ public class UserBiz {
 			throw new BizException("注册失败，请联系管理员",e);
 		}
 	}
+	
+	public void Modif(Integer uid,String username,String password,String name,String email,String phone) throws BizException, SQLException {
+		// 字段验证
+		
+		Utils.checkNull(username, "用户名不能为空");
+		Utils.checkNull(password, "密码不能为空");
+		Utils.checkNull(name, "姓名不能为空");
+		Utils.checkNull(email, "邮箱不能为空");
+		Utils.checkNull(phone, "电话号码不能为空");
+		// 同名验证
+		User dbuser = udao.selectByName(username);
+		
+		if(dbuser != null ) {
+			throw new BizException("该用户名已经被注册");
+		}
+		try {
+			udao.Modif(uid, username, password, name, email, phone);
+		} catch (SQLException e) {
+			throw new BizException("修改信息成功",e);
+		}
+	}
+
 
 }

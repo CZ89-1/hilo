@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <title>Hilo - Organic Food Shop HTML Template</title>
 </head>
 <body>
@@ -229,115 +231,97 @@ Português
 <section class="cart-wraps-area ptb-100">
 <div class="container">
 <div class="row">
-<div class="col-lg-12 col-md-12">
+<div class="col-lg-12 col-md-12" id="app1">
 <form>
 <div class="cart-wraps">
 <div class="cart-table table-responsive">
 <table class="table table-bordered">
 <thead>
 <tr>
-<th scope="col">Product</th>
-<th scope="col">Name</th>
-<th scope="col">Unit Price</th>
-<th scope="col">Add Cart</th>
-<th scope="col">Total</th>
+<th scope="col">图片</th>
+<th scope="col">名称</th>
+<th scope="col">价格</th>
+<th scope="col">加购</th>
+
 </tr>
 </thead>
-<tbody>
+<tbody v-for="f in fruits">
 <tr>
 <td class="product-thumbnail">
 <a href="#">
-<img src="assets/images/products/products-img1.png" alt="Image">
+<img :src="f.f_image" alt="Image">
 </a>
 </td>
 <td class="product-name">
-<a href="#">Organic Butter</a>
+<a href="#">{{f.fname}}</a>
 </td>
 <td class="product-price">
-<span class="unit-amount">$120.00</span>
+<span class="unit-amount">${{f.fprice}}</span>
 </td>
 <td class="product-quantity">
-<a href="#" class="default-btn btn-bg-three">Add to Cart</a>
+<button type="submit" class="default-btn btn-bg-three" @click="addCart(f.fid)">
+<i class="fas fa-cart-plus"></i> 添加购物车
+</button>
 </td>
 <td class="product-subtotal">
-<span class="subtotal-amount">$120.00</span>
-<a href="#" class="remove">
+<a href="wishlist.html" class="remove" @click="deleteWish(f.fid)">
 <i class='bx bx-x-circle'></i>
 </a>
 </td>
 </tr>
-<tr>
-<td class="product-thumbnail">
-<a href="#">
-<img src="assets/images/products/products-img2.png" alt="Image">
- </a>
-</td>
-<td class="product-name">
-<a href="#">Fresh Carrots</a>
-</td>
-<td class="product-price">
-<span class="unit-amount">$20.00</span>
-</td>
-<td class="product-quantity">
-<a href="#" class="default-btn btn-bg-three">Add to Cart</a>
-</td>
-<td class="product-subtotal">
-<span class="subtotal-amount">$20.00</span>
-<a href="#" class="remove">
-<i class='bx bx-x-circle'></i>
-</a>
-</td>
-</tr>
-<tr>
-<td class="product-thumbnail">
-<a href="#">
-<img src="assets/images/products/products-img3.png" alt="Image">
-</a>
-</td>
-<td class="product-name">
-<a href="#">Green Cucumber</a>
-</td>
-<td class="product-price">
-<span class="unit-amount">$10.00</span>
-</td>
-<td class="product-quantity">
-<a href="#" class="default-btn btn-bg-three">Add to Cart</a>
-</td>
-<td class="product-subtotal">
-<span class="subtotal-amount">$10.00</span>
-<a href="#" class="remove">
-<i class='bx bx-x-circle'></i>
-</a>
-</td>
-</tr>
-<tr>
-<td class="product-thumbnail">
-<a href="#">
-<img src="assets/images/products/products-img4.png" alt="Image">
-</a>
-</td>
-<td class="product-name">
-<a href="#">Fresh Pineapple</a>
-</td>
-<td class="product-price">
-<span class="unit-amount">$15.00</span>
-</td>
-<td class="product-quantity">
-<a href="#" class="default-btn btn-bg-three">Add to Cart</a>
-</td>
-<td class="product-subtotal">
-<span class="subtotal-amount">$15.00</span>
-<a href="#" class="remove">
-<i class='bx bx-x-circle'></i>
-</a>
-</td>
-</tr>
+
+
+
 </tbody>
 </table>
 </div>
 </div>
 </form>
 </div>
+<script type="text/javascript">
+  var vue=new Vue({
+	  el:"#app1",
+	  data:{
+		  fruits:[]
+	  },
+	  created(){
+			axios.get("getLoginedUser").then(res=>{
+				if( res.data && res.data.uid ){
+					//console.log(this.$refs.counts.value);
+					axios.get("queryWish").then(res=>{
+						this.fruits = res.data;
+					});
+				}else {
+					alert("你尚未登录");
+					location.href = "log-in.html";
+				}
+			});
+		},
+	methods:{
+		addCart(fid){
+			 
+   			 axios.get("wish.s?addCarts&fid="+fid).then(res=>{
+   				if(res.data.code == 1) {
+					location.href = "cart.html";
+				}else{
+					alert(res.data.msg);
+				}
+			})
+   		},
+   			  
+	   deleteWish(fid){
+			if(confirm("确定删除该商品?")){
+				axios.get("wish.s?deleteWish&fid="+fid).then(res=>{
+					alert(res.data.msg);
+				})
+			}
+		},
+	}
+  })
+</script>
+
+
+
 </div>
 </div>
 </section>

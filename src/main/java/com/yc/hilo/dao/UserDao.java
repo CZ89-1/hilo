@@ -65,6 +65,16 @@ public class UserDao extends BaseDao {
 		return jt.query(sql,UserRowMapper);
 	}
 	
+   public void Modifs(Integer uid,String username,String password,String name,String email,String phone) throws BizException, SQLException {
+		
+		ubiz.Modif(uid, username, password, name, email, phone);
+	}
+	
+	public void Modif(Integer uid,String username,String password,String name,String email,String phone) throws BizException, SQLException {
+		
+		String sql="update user set username=?,password=?,name=?,email=?,phone=? where uid=?";
+		jt.update(sql,uid);
+	}
 	
 	
 	
