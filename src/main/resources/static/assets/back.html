@@ -65,21 +65,12 @@
 				<div class="search col-md-12">
 					<div class="row">
 						<div class="col-md-4">
-							<a href="addFruit.html" class="btn btn-primary">添加商品</a>
+							<a href="back/addfruit.html" class="btn btn-primary">添加商品</a>
 							
 						</div>
 						<div class="col-md-8">
 							<form class="form-inline">
-								<!-- <div class="form-group">
-									<label for="role">角色</label> <input type="text"
-										class="form-control" id="exampleInputName2"
-										placeholder="请输入角色">
-								</div> -->
-								<!-- <div class="form-group">
-									<label for="state">状态</label> <input type="text"
-										class="form-control" id="exampleInputName2"
-										placeholder="请输入状态">
-								</div> -->
+								
 								<div class="form-group search-input">
 									<input type="email" class="form-control"
 										id="exampleInputEmail2" placeholder="请输入..."> <span
@@ -119,8 +110,8 @@
 											<td ><a href="#" >{{f.fdesc}}</a></td>
 											<td ><a href="#" >{{f.hot}}</a></td>
 											<td ><a href="#" >{{f.guanggao}}</a></td>
-											<td class="btn btn-danger" type="button" >删除</td>
-											<td class="btn btn-danger" type="button" >修改</td>
+											<td class="btn btn-danger" type="button" @click="deleteFruit(f.fid)">删除</td>
+											<td class="btn btn-danger" type="button" ><a :href="'updatefruit.html#'+f.fid">修改</a></td>
 											
 											
 										</tr>
@@ -135,12 +126,25 @@
                       var vue=new Vue({
                     	  el:"#app1",
                     	  data:{
-                    		  fruits:[]
+                    		  fruits:[],
+      
                     	  },
                     	  created(){
                     		  axios.get("../queryFruit").then(res=>{
                     			  this.fruits=res.data;
                     		  })
+                    	  },
+                    	  methods:{
+                    		  
+                    		  deleteFruit(fid){
+                    			  axios.get("../fruit.s?op=deleteFruit&fid="+fid).then(res=>{
+                    				  alert(res.data.msg);
+                    				  location.href="back.html";
+                        		  }) 
+                    		  }
+                    		 
+                    		  
+                    		  
                     	  }
                     	  
           						

@@ -1,8 +1,10 @@
 package com.yc.hilo.web;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,7 @@ import com.yc.hilo.biz.FruitBiz;
 import com.yc.hilo.dao.FruitsDao;
 import com.yc.hilo.po.Fruit;
 import com.yc.hilo.po.Result;
+import com.yc.hilo.po.User;
 
 @RestController
 public class FruitsAction {
@@ -65,8 +68,8 @@ public class FruitsAction {
 		}
 	}
   //后台删除商品
-  @RequestMapping(path="fruit.do",params = "op=del")
-	public Result del(int fid) {
+  @RequestMapping(path="fruit.s",params ="op=deleteFruit")
+  public Result del(int fid) {
 		fd.delFruit(fid);
 		return Result.success("商品删除成功!");
 		
@@ -107,5 +110,18 @@ public class FruitsAction {
   public int getFruitsTotalNum() {
 	  return fd.getFruitsTotalNum();
   }
+  
+  //后台商品修改
+  @RequestMapping(path="saveFruit.s" ,params = "op=save")
+	public Result SaveFruit(String fid,String fname,String fprice,String fnprice,String fImage,String fdesc,String hot,String guanggao,String cid,HttpSession session) throws SQLException, BizException {
+		
+		
+		fb.SaveFruit(fid, fname, fprice, fnprice, fImage, fdesc, hot, guanggao, cid);
+		
+		
+		return Result.success("修改信息成功!");
+		
+	}
+
 
 }

@@ -5,15 +5,19 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-
+import com.yc.hilo.biz.BizException;
 import com.yc.hilo.po.Fruit;
 import com.yc.hilo.po.Result;
 
 @Repository
 public class FruitsDao extends BaseDao{
+	
+   
    public List<Fruit> SelectFruitsNew() {
 	   String sql="SELECT * FROM fruit ORDER BY fdate DESC LIMIT 0,8";
 	   return jt.query(sql,FruitRowMapper);
@@ -129,5 +133,14 @@ public class FruitsDao extends BaseDao{
 		String sql="select *from fruit where fname like concat('%',?,'%')";
 		return jt.query(sql,FruitRowMapper,fname);
 	}
+	
+	 
+	 
+	 public void SaveFruit(String fid,String fname,String fprice,String fnprice,String fImage,String fdesc,String hot,String guanggao,String cid) throws BizException, SQLException {
+			
+			String sql="UPDATE `fruit` SET fname=?,`fprice`=?,`fnprice`=?,f_image=?,fdesc=?,hot=?,guanggao=?,cid=? WHERE fid=?";
+			jt.update(sql,fname,fprice,fnprice,fImage,fdesc,hot,guanggao,cid,fid);
+		}
+		
 
 }

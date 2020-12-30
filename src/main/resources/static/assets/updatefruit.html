@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>后台管理</title>
+
+<!-- Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/index.css">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script
+	src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<!-- 左侧导航开始 -->
+		<div class="sidebar">
+			<ul class="nav">
+				<li class="nav-header">
+					<div class="profile">
+						<h4>后台管理系统</h4>
+					</div>
+					<div class="logo">
+						<img src="images/rabbit.jpg" alt="">
+						<div class="nick-name">管理员</div>
+					</div>
+				</li>
+
+				<li><a href="back.html" class="glyphicon glyphicon-user"> <span>商品管理</span>
+				</a></li>
+				<li><a href="usergl.html" class="glyphicon glyphicon-th-large">
+						<span>用户管理</span>
+				</a></li>
+				<li><a href="ordergl.html" class="glyphicon glyphicon-th-list">
+						<span>订单管理</span>
+				</a></li>
+				<li><a href="category.html" class="glyphicon glyphicon-book">
+						<span>类别管理</span>
+				</a></li>
+
+
+			</ul>
+		</div>
+		<!-- 左侧结束 -->
+		<!-- 右侧开始 -->
+		<div class="page-wrapper">
+			<div class="border-bottom">
+				<nav class="navbar">
+					<div class="navbar-header">
+						<span>欢迎使用后台管理系统</span>
+					</div>
+					<ul>
+						<li class="glyphicon glyphicon-bell"></li>
+						<li class=""><a href="#"> <img src="images/rabbit.jpg"
+								alt=""> <span>粉墨</span>
+						</a></li>
+					</ul>
+				</nav>
+				<nav class="nav-user">修改商品</nav>
+			</div>
+			<div class="main-content">
+
+				<h4>修改商品</h4>
+				<div class="search col-md-12">
+					<div class="row">
+
+
+						<!-- <div class="toolbar">工具框未实现</div> -->
+						<!-- 表格部分 -->
+
+						<div class="table-container" id="app1">
+							<div class="table-header">
+								<form class="table table-bordered">
+									<div id="app1">
+
+										<div >
+											<div >
+												<span >*</span>商品名: <input type="text"
+										     value="fruits.fname" v-model="fruits.fname">
+											</div>
+										</div>
+
+										<div >
+											<div >
+												<span >*</span>现价: <input type="text"
+													value="fruits.fprice" v-model="fruits.fprice">
+											</div>
+										</div>
+
+
+
+										<div >
+											<div >
+												<span >*</span>原价: <input type="text"
+													value="fruits.fnprice"  v-model="fruits.fnprice">
+											</div>
+										</div>
+
+										<div>
+											<div >
+												<span >*</span>图片: <input type="text"
+													value="fruits.fImage"  v-model="fruits.fImage">
+											</div>
+										</div>
+										
+										<div>
+											<div >
+												<span >*</span>描述: <input type="text"
+													value="fruits.fdesc"  v-model="fruits.fdesc">
+											</div>
+										</div>
+										
+										
+
+										<div >
+											<div >
+												<span >*</span>是否热门: <select value="fruits.hot" v-model="fruits.hot">
+					                            <option value="1">热卖</option>
+					                            <option value="0">非热卖</option>
+					                            </select>
+											</div>
+										</div>
+										
+										<div >
+											<div >
+												<span >*</span>是否广告: <select value="fruits.guanggao" v-model="fruits.guanggao">
+					                            <option value="1">广告</option>
+					                            <option value="0">非广告</option>
+					                            </select>
+											</div>
+										</div>
+										
+										<div >
+											<div >
+												<span >*</span>类别: <select value="fruits.cid" v-model="fruits.cid">
+					                            <option value="1">牛肉</option>
+					                            <option value="2">蔬菜</option>
+					                            <option value="3">水果</option>
+					                            <option value="4">其他</option>
+					                            </select>
+											</div>
+										</div>
+
+
+
+										<div>
+											<button type="button"  @click="save()">保存</button>
+										</div>
+
+									</div>
+								</form>>
+							</div>
+							<div class="table-body"></div>
+							<div class="table-footer"></div>
+						</div>
+
+						<script type="text/javascript">
+						var vue = new Vue({
+							el : "#app1",
+							data :{
+								fruits:{
+									fid:"",
+									fname:"",
+						            fprice:"",
+						            fnprice:"",
+						            fImage:"",
+						            fdesc:"",
+						            hot:"",
+						            guanggao:"",
+						            cid:""
+								}
+							},
+							created(){
+								axios.get("../fruit.s?op=queryFruitById&fid="+location.hash.substring(1)).then(res=>{
+									this.fruits = res.data;
+								})
+							},
+							 methods:{
+								  save(){
+									var fid=this.fruits.fid;
+									var fname=this.fruits.fname;
+									var fprice=this.fruits.fprice;
+									var fnprice=this.fruits.fnprice;
+									var fImage=this.fruits.fImage;
+									var fdesc=this.fruits.fdesc;
+									var hot=this.fruits.hot;
+									var guanggao=this.fruits.guanggao;
+									var cid=this.fruits.cid;
+									axios.get("../saveFruit.s?op=save&fid="+fid+"&fname="+fname+"&fprice="+fprice+"&fnprice="+fnprice+"&fImage="+fImage+"&fdesc="+fdesc+"&hot="+hot+"&guanggao="+guanggao+"&cid="+cid).then(res=>{
+												   alert(res.data.msg);
+											 
+										});
+								}	
+							 }
+                  	
+          			 })
+                    
+                    
+                    </script>
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+	<script src="jquery/jquery-3.2.1.min.js"></script>
+	<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
