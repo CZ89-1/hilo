@@ -65,12 +65,21 @@
 				<div class="search col-md-12">
 					<div class="row">
 						<div class="col-md-4">
-							<a href="back/addfruit.html" class="btn btn-primary">添加商品</a>
+							<a href="addFruit.html" class="btn btn-primary">添加商品</a>
 							
 						</div>
 						<div id="seap" class="col-md-8">
 							<form class="form-inline">
-								
+								<!-- <div class="form-group">
+									<label for="role">角色</label> <input type="text"
+										class="form-control" id="exampleInputName2"
+										placeholder="请输入角色">
+								</div> -->
+								<!-- <div class="form-group">
+									<label for="state">状态</label> <input type="text"
+										class="form-control" id="exampleInputName2"
+										placeholder="请输入状态">
+								</div> -->
 								<div class="form-group search-input">
 									<input type="text" naem="fname" v-model="fname" class="form-control"
 										 placeholder="请输入..."> 
@@ -94,7 +103,7 @@
 									axios.post("../queryfnames",params).then(res=>{
 										alert(res.data.msg);
 										if(res.data.code==1){
-											location.href="search.html#"+this.fname;
+											location.href="../search.html#"+this.fname;
 										}
 									})
 								}
@@ -108,7 +117,7 @@
 						<!-- <div class="toolbar">工具框未实现</div> -->
 						<!-- 表格部分 -->
 
-						<div class="table-container" id="app1">
+						<div class="table-container" id="rf">
 							<div class="table-header">
 								<table class="table table-bordered">
 									<thead>
@@ -136,8 +145,8 @@
 											<td ><a href="#" >{{f.fdesc}}</a></td>
 											<td ><a href="#" >{{f.hot}}</a></td>
 											<td ><a href="#" >{{f.guanggao}}</a></td>
-											<td class="btn btn-danger" type="button" @click="deleteFruit(f.fid)">删除</td>
-											<td class="btn btn-danger" type="button" ><a :href="'updatefruit.html#'+f.fid">修改</a></td>
+											<td class="btn btn-danger" type="button" >删除</td>
+											<td class="btn btn-danger" type="button" >修改</td>
 											
 											
 										</tr>
@@ -149,48 +158,22 @@
 						</div>
 						
 						<script type="text/javascript">
-                      var vue=new Vue({
-                    	  el:"#app1",
-                    	  data:{
-                    		  fruits:[],
-      
-                    	  },
-                    	  created(){
-                    		  axios.get("../queryFruit").then(res=>{
-                    			  this.fruits=res.data;
-                    		  })
-                    	  },
-                    	  methods:{
-                    		  
-                    		  deleteFruit(fid){
-                    			  axios.get("../fruit.s?op=deleteFruit&fid="+fid).then(res=>{
-                    				  alert(res.data.msg);
-                    				  location.href="back.html";
-                        		  }) 
-                    		  }
-                    		 
-                    		  
-                    		  
-                    	  }
-                    	  
-          						
-          			 })
-                    
-                    
-                    </script>
-						
-
-
+							var v1=new Vue({
+								el:"#rf",
+								data:{
+									fruits:[],
+								},created(){
+									var f =location.hash.substring(1);
+									axios.get("../search.s?fname="+f).then(res=>{
+										this.fruits=res.data;
+									})
+								}
+							})
+						</script>
 					</div>
-
 				</div>
-
-
 			</div>
 		</div>
-
-
-
 	</div>
 
 

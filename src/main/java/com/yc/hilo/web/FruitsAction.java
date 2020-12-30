@@ -99,10 +99,12 @@ public class FruitsAction {
    public List<Fruit> queryByfname(String fname){
 	   return fd.queryByfname(fname);
    }
- 
   
   @RequestMapping(path="fruit.s",params = "op=queryFruitByCid")
 	public List<Fruit> queryProductByCid(int cid,int pageNum,int pageSize){
+	  System.out.println("页码========"+pageNum);
+	  System.out.println("个数========"+pageSize);
+	  System.out.println("种类======="+cid);
 		return fd.queryFruitByCid(cid,pageNum,pageSize);
 	}
   
