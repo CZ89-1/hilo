@@ -72,8 +72,8 @@ public class UserDao extends BaseDao {
 	
 	public void Modif(Integer uid,String username,String password,String name,String email,String phone) throws BizException, SQLException {
 		
-		String sql="update user set username=?,password=?,name=?,email=?,phone=? where uid=?";
-		jt.update(sql,uid);
+		String sql="UPDATE `user` SET username=?,`password`=?,`name`=?,email=?,phone=? WHERE uid=?";
+		jt.update(sql,username,password,name,email,phone,uid);
 	}
 	
 	

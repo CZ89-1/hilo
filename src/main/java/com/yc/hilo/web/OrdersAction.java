@@ -51,6 +51,13 @@ public class OrdersAction {
 		
 	}
 	
+	//后台订单查询
+	@RequestMapping("queryAllOrders")
+	public List<Orders> queryAllOrders(){
+		return odao.selectAllOrders();
+		
+	}
+	
 	@RequestMapping(path="order.s" ,params = "sureOrder")
 	public Result sureOrder(int oid,HttpSession session) {
 		odao.sureOrder(oid);
@@ -60,8 +67,12 @@ public class OrdersAction {
 	
 	@RequestMapping(path="order.s" ,params = "queryOrdersState")
 	public List<?>queryOrderstate(int state,HttpSession session){
-		return odao.queryOrderstate(state);
+		User user = (User) session.getAttribute("loginedUser");
+		
+		return odao.queryOrderstate(state,user.getUid());
 	}
+	
+	
 	
 
 }

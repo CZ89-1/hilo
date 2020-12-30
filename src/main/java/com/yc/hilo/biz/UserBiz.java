@@ -30,6 +30,15 @@ public class UserBiz {
 		mbiz.sendSimpleMail(user.getEmail(), "密码重置验证码","请使用"+vcode+"验证码来重置密码");
 		return vcode;
 	}
+	
+	public String sendVcodes(String email) {
+		
+		// 生成随机验证码
+		String vcode = "" + System.currentTimeMillis();
+		vcode = vcode.substring(vcode.length()-4);
+		mbiz.sendSimpleMail(email, "密码重置验证码","请使用"+vcode+"验证码来重置密码");
+		return vcode;
+	}
 	public String resetPwd(String username,String vcode,
 			String password,String sessionVcode) {
 		System.out.println(vcode);
@@ -84,6 +93,7 @@ public class UserBiz {
 		}
 	}
 	
+	//用户信息修改
 	public void Modif(Integer uid,String username,String password,String name,String email,String phone) throws BizException, SQLException {
 		// 字段验证
 		
@@ -101,7 +111,7 @@ public class UserBiz {
 		try {
 			udao.Modif(uid, username, password, name, email, phone);
 		} catch (SQLException e) {
-			throw new BizException("修改信息成功",e);
+			throw new BizException("修改信息失败",e);
 		}
 	}
 

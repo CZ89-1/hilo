@@ -19,7 +19,7 @@ public class CategoryAction {
 
 	@Resource
 	private CategoryDao cdao;
-	@RequestMapping(path="category.s",params = "op=queryCategory")
+	@RequestMapping("queryCategory")
 	public List<Category> queryCategory(){
 		return cdao.queryCategory();
 		

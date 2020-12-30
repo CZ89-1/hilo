@@ -39,6 +39,13 @@ public class UserAction {
 		session.setAttribute("vcode", vcode);
 		return "验证码邮件发送成功!";
 	}
+	@RequestMapping("sendVcodes")
+	public String sendVcodes(String email,HttpSession session) {
+		String vcode=ubiz.sendVcodes(email);
+		session.setAttribute("vcode", vcode);
+		return "验证码邮件发送成功!";
+	}
+	
 	@RequestMapping("resetPwd")
 	public String resetPwd(String username,String vcode,String password,HttpSession session) {
 		return ubiz.resetPwd(username,vcode,password, (String) session.getAttribute("vcode"));
@@ -77,7 +84,7 @@ public class UserAction {
 		} 
 	}
 	
-	@RequestMapping("queryUser")
+	@RequestMapping("queryAllUser")
 	public List<User> queryAllUser(){
 		return udao.selectAllUser();
 		
@@ -87,7 +94,7 @@ public class UserAction {
 	public Result Modif(String username,String password,String name,String email,String phone,HttpSession session) throws SQLException, BizException {
 		
 		User user = (User) session.getAttribute("loginedUser");
-		
+		System.out.println(user.toString());
 		udao.Modifs(user.getUid(), username, password, name, email, phone);
 		
 		return Result.success("修改信息成功!");
