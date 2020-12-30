@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="assets/css/responsive.css">
 
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
-<title>Hilo - 注册</title>
+<title>Hilo - 我的账户</title>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script
 	src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
@@ -250,6 +250,7 @@ Português
 <div class="row align-items-center">
 <div class="col-lg-5 col-md-4">
 <div class="inner-content">
+
 <h2>我的账号</h2>
 <ul>
 <li><a href="index.html">主页</a></li>
@@ -280,7 +281,7 @@ Português
 <div class="form-group">
 <span class="requiredField">*</span>用户名:
 <input type="text" class="form-control" required data-error="Please enter your Username" 
-:value="user.username" v-model="user.username">
+value="user.username" v-model="user.username">
 </div>
 </div>
 
@@ -288,7 +289,7 @@ Português
 <div class="form-group">
 <span class="requiredField">*</span>密码:
 <input type="text" class="form-control" required data-error="Please enter your Password" 
-:value="user.password" v-model="user.password">
+value="user.password" v-model="user.password">
 </div>
 </div>
 
@@ -298,7 +299,7 @@ Português
 <div class="form-group">
 <span class="requiredField">*</span>姓名:
 <input type="text" class="form-control" required data-error="Please enter your Name" 
-:value="user.name" v-model="user.name">
+value="user.name" v-model="user.name">
 </div>
 </div>
 
@@ -306,7 +307,7 @@ Português
 <div class="form-group">
 <span class="requiredField">*</span>邮箱:
 <input type="email" class="form-control" required data-error="Please enter your Email" 
-:value="user.email" v-model="user.email">
+value="user.email" v-model="user.email">
 </div>
 </div>
 
@@ -314,7 +315,7 @@ Português
 <div class="form-group">
 <span class="requiredField">*</span>电话:
 <input type="phone" class="form-control" required data-error="Please enter your Phone" 
-:value="user.phone" v-model="user.phone">
+value="user.phone" v-model="user.phone">
 </div>
 </div>
 
@@ -322,9 +323,7 @@ Português
 
 <div class="col-lg-12 ">
 <button  type="button" class="default-btn btn-bg-three" @click="modif()">
-
 保存
-
 </button>
 </div>
 

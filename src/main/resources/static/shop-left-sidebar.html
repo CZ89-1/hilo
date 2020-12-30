@@ -299,7 +299,7 @@ var v5=new Vue({
 		categ:[]
 	},
 		created(){
-			axios.get("category.s?op=queryCategory").then(res=>{
+			axios.get("queryCategory").then(res=>{
 				this.categ = res.data;
 			});
 		}	

@@ -41,13 +41,14 @@ public class CartAction {
 	 * @param count 商品数量
 	 * @param session 会话对象
 	 * @return
+	 * @throws SQLException 
 	 */
 	@RequestMapping("addCart")
-	public Result addCart(int fid, int count, HttpSession session) {
+	public Result addCart(int fid, int count, HttpSession session) throws SQLException {
 		// 获取当前的登录的用户
 		User user = (User) session.getAttribute("loginedUser");
 		// 添加购物车记录, 注意:这里没有判断,是否有添加过商品,请自行移植
-		cdao.insert(user.getUid(),fid,count);
+		cdao.addCart(user.getUid(),fid,count);
 		// 返回结果
 		return Result.success("添加购物车成功!");
 	}

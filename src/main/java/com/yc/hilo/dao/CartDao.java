@@ -23,7 +23,7 @@ public class CartDao extends BaseDao {
 		return list;
 	}
 
-	public void addCart(String fid, String count, Integer uid) throws SQLException {
+	public void addCart(Integer uid,int fid, int count) throws SQLException {
 		
 
 		String sql = "update cart set count=count+? where uid=? and fid=?";

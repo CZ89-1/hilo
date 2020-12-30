@@ -2,15 +2,18 @@ package com.yc.hilo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.yc.hilo.po.Fruit;
 import com.yc.hilo.po.Orders;
 
 
@@ -70,16 +73,37 @@ public class OrdersDao extends BaseDao{
 				+ "where a.uid=?", uid);
 	}
 	
+	public List<Orders> selectAllOrders() {
+		return jt.query("select * from orders",OrdersRowMapper);
+	}
+	
 	public void sureOrder(int oid) {
 		String sql="update orders set state=3 where oid=?";
 		jt.update(sql,oid);
 	}
 	
-	public List<Map<String,Object>> queryOrderstate(int state) {
-		String sql="SELECT * from orders a JOIN orderitem b JOIN fruit c WHERE a.oid=b.oid AND b.fid=c.fid and state=?";
-		return jt.queryForList(sql,state);
+	public List<Map<String,Object>> queryOrderstate(int state,Integer uid) {
+		String sql="SELECT * from orders a JOIN orderitem b JOIN fruit c WHERE a.oid=b.oid AND b.fid=c.fid and state=? AND uid=?";
+		return jt.queryForList(sql,state,uid);
 	}
-	
+	private RowMapper<Orders> OrdersRowMapper = new RowMapper<Orders>() {
+
+		@Override
+		public Orders mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Orders o = new Orders();
+			o.setOid(rs.getInt("oid"));
+			o.setAddr(rs.getString("addr"));
+			o.setName(rs.getString("name"));
+			o.setOrdertime(rs.getDate("ordertime"));
+			o.setPhone(rs.getString("phone"));
+			o.setState(rs.getInt("state"));
+			o.setTotal(rs.getDouble("total"));
+			o.setUid(rs.getInt("uid"));
+			
+			
+			return o;
+		}
+	};
 	
 	
 
