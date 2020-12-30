@@ -284,7 +284,7 @@ ul.pagination li a {
 							<h3 class="title">商品过滤：</h3>
 							<div class="product-side-categories">
 								<ul>
-									<li class="active"><a href="shop-left-sidebar.html">所有类别</a>
+									<li ><a href="shop-left-sidebar.html">所有类别</a>
 									</li>
 									<li v-for="c in categ"><a
 										:href="'shop-left-sidebar.html?cid='+c.cid+'#'+c.cid" >{{c.cname}}</a></li>
@@ -292,19 +292,20 @@ ul.pagination li a {
 							</div>
 						</div>
 						<script type="text/javascript">
-var v5=new Vue({
-	el:"#catego",
-
-	data:{
-		categ:[]
-	},
-		created(){
-			axios.get("queryCategory").then(res=>{
-				this.categ = res.data;
-			});
-		}	
-});
-</script>
+							var v5=new Vue({
+								el:"#catego",
+							
+								data:{
+									categ:[],
+									pid:""
+								},
+									created(){
+										axios.get("queryCategory").then(res=>{
+											this.categ = res.data;
+										});
+									}	
+							});
+						</script>
 						
 						
 					</div>
@@ -368,67 +369,85 @@ var v5=new Vue({
 					</div>
 				</div>
 
-				<script type="text/javascript">
+			<script type="text/javascript">
 
-var v2=new Vue({
-	el:"#detai",
-	data:{
-		fruits:[],
-		rows:1,//总条数
-		pageNum:1,//当前页码
-		pageTotal:1,//总页数
-		pageSize:12,//每页条数
-	},created(){
-		var cid =location.hash.substring(1);
-		if(cid != ""){
-			this.cid = cid;
-			var p = new URLSearchParams();
-			p.append("op","queryFruitByCid");
-			p.append("cid",cid);
-			p.append("pageNum",this.pageNum);
-			p.append("pageSize",this.pageSize);
-			axios.post("fruit.s",p).then(res=>{
-				this.fruits = res.data;
-			})
-		}else{
-			axios.get("fruit?op=queryCount").then(res=>{
-				this.rows=res.data;
-				var t = this.rows/this.pageSize;
-				this.pageTotal=Math.ceil(t);
-			}),
-			axios.get("fruitss?pageNum=1&pageSize="+this.pageSize).then(res=>{
-				this.fruits = res.data;
-				})
-		}	
-	},methods:{
-		sub(value){
-			console.log(value);
-			this.pageNum += value;
-			if(this.pageNum<=1){
-				this.pageNum = 1;
-			}
-			if(this.pageNum>= this.pageTotal){
-				this.pageNum = this.pageTotal;
-			}
-			var p = new URLSearchParams();
-			p.append("pageNum",this.pageNum);
-			p.append("pageSize",this.pageSize);
-			axios.post("fruitss",p).then(res=>{
-				this.fruits = res.data;
-			})
-		},
-		toPage(value){
-			this.pageNum = value;
-			var p = new URLSearchParams();
-			p.append("pageNum",value);
-			p.append("pageSize",this.pageSize);
-			axios.post("fruitss",p).then(res=>{
-				this.fruits = res.data;
-			})
-		}
-	}
-}) 
-</script>
+					var v2=new Vue({
+						el:"#detai",
+						data:{
+							fruits:[],
+							rows:1,//总条数
+							pageNum:1,//当前页码
+							pageTotal:1,//总页数
+							pageSize:12,//每页条数
+							cid:"",
+						},created(){
+							this.cid =location.hash.substring(1);
+							if(this.cid != ""){
+								var p = new URLSearchParams();
+								p.append("op","queryFruitByCid");
+								p.append("cid",this.cid);
+								p.append("pageNum",this.pageNum);
+								p.append("pageSize",this.pageSize);
+								axios.post("fruit.s",p).then(res=>{
+									this.fruits = res.data;
+								})
+							}else{
+								axios.get("fruit?op=queryCount").then(res=>{
+									this.rows=res.data;
+									var t = this.rows/this.pageSize;
+									this.pageTotal=Math.ceil(t);
+								}),
+								axios.get("fruitss?pageNum=1&pageSize="+this.pageSize).then(res=>{
+									this.fruits = res.data;
+									})
+							}	
+						},methods:{
+							sub(value){
+										console.log(value);
+										this.pageNum += value;
+											if(this.pageNum<=1){
+												this.pageNum = 1;
+											}
+											if(this.cid ==""){
+												if(this.pageNum>= this.pageTotal){
+													this.pageNum = this.pageTotal;
+												}
+											}
+											var p = new URLSearchParams();
+											p.append("pageNum",this.pageNum);
+											p.append("pageSize",this.pageSize);
+											if(this.cid !=""){
+												p.append("op","queryFruitByCid");
+												p.append("cid",this.cid);
+												axios.post("fruit.s",p).then(res=>{
+													this.fruits = res.data;
+												})
+											}else{
+												axios.post("fruitss",p).then(res=>{
+													this.fruits = res.data;
+												})
+											}
+										},
+							toPage(value){
+								this.pageNum = value;
+								var p = new URLSearchParams();
+								p.append("pageNum",value);
+								p.append("pageSize",this.pageSize);
+									if(this.cid !=""){
+										p.append("op","queryFruitByCid");
+										p.append("cid",this.cid);
+										axios.post("fruit.s",p).then(res=>{
+											this.fruits=res.data;
+										})
+									}else{
+										axios.post("fruitss",p).then(res=>{
+											this.fruits = res.data;
+										})
+									}
+							}
+						}
+					}) 
+				</script>
 
 
 			</div>

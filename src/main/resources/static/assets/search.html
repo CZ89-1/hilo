@@ -103,7 +103,7 @@
 									axios.post("../queryfnames",params).then(res=>{
 										alert(res.data.msg);
 										if(res.data.code==1){
-											location.href="search.html#"+this.fname;
+											location.href="../search.html#"+this.fname;
 										}
 									})
 								}
@@ -117,7 +117,7 @@
 						<!-- <div class="toolbar">工具框未实现</div> -->
 						<!-- 表格部分 -->
 
-						<div class="table-container" id="app1">
+						<div class="table-container" id="rf">
 							<div class="table-header">
 								<table class="table table-bordered">
 									<thead>
@@ -158,35 +158,22 @@
 						</div>
 						
 						<script type="text/javascript">
-                      var vue=new Vue({
-                    	  el:"#app1",
-                    	  data:{
-                    		  fruits:[]
-                    	  },
-                    	  created(){
-                    		  axios.get("../queryFruit").then(res=>{
-                    			  this.fruits=res.data;
-                    		  })
-                    	  }
-                    	  
-          						
-          			 })
-                    
-                    
-                    </script>
-						
-
-
+							var v1=new Vue({
+								el:"#rf",
+								data:{
+									fruits:[],
+								},created(){
+									var f =location.hash.substring(1);
+									axios.get("../search.s?fname="+f).then(res=>{
+										this.fruits=res.data;
+									})
+								}
+							})
+						</script>
 					</div>
-
 				</div>
-
-
 			</div>
 		</div>
-
-
-
 	</div>
 
 
