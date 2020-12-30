@@ -107,7 +107,7 @@
                             
                             <div class="top-header-right-item">
                                 <ul class="top-header-list">
-                                    <li><a href="per-infor.html">我的账户</a></li>
+                                    <li><a href="per-infor.html">我的账号</a></li>
                                     <li><a href="log-in.html" v-if=" user=='' ">登录</a>
                                     <a v-else @click="logout()">退出</a>|
 						              <a v-if="user!=null">{{user.name}}</a>|
@@ -294,7 +294,7 @@
                             <span>欢迎来到hilo商店</span>
                             <h1>立即订购有机食品</h1>
                             <p>希望我的商品能得到您的认可</p>
-                            <a href="#" class="default-btn btn-bg-one">立即订购吧</a>
+                            <a href="shop-details.html#80" class="default-btn btn-bg-one">立即订购吧</a>
                             <img src="assets/images/home-one/home-one-img1.png" alt="Banner Images">
                         </div>
                     </div>
@@ -305,7 +305,7 @@
                                 <div class="banner-item-side">
                                     <h3>火热销售</h3>
                                     <span>30%的优惠</span>
-                                    <a href="#" class="newslette-btn">新品上市</a>
+                                    <a href="#newf" class="newslette-btn">新品上市</a>
                                     <img src="assets/images/home-one/home-one-img2.png" alt="Banner Images">
                                 </div>
                             </div>
@@ -314,7 +314,7 @@
                                 <div class="banner-item-side-2">
                                     <h3>最大折扣</h3>
                                     <span>降价70%</span>
-                                    <a href="shop-left-sidebar.html#5" class="shop-btn">销售中</a>
+                                    <a href="shop-left-sidebar.html" class="shop-btn">销售中</a>
                                 </div>
                             </div>
                         </div>
@@ -326,7 +326,7 @@
 
         <!-- New Arrival Area -->
         <section class="new-arrival-area pt-100 pb-70">
-            <div class="container">
+            <div id="newf" class="container">
                 <div class="section-title text-center">
                     <h2>新品上市</h2>
                 </div>
@@ -452,7 +452,7 @@
                             <div class="col-lg-12 col-md-6" >
                                 <div class="trending-side-item">
                                     <h3>{{g.fdesc}}</h3>
-                                    <h3><a href="shop-details.html">{{g.fname}}</a></h3>
+                                    <h3><a :href="'shop-details.html#'+g.fid">{{g.fname}}</a></h3>
                                     <a :href="'shop-details.html#'+g.fid" class="shop-btn">立即购买</a>
                                    
                                     <img :src="g.fImage" alt="Images">

@@ -96,7 +96,6 @@ public class FruitsAction {
    public List<Fruit> queryByfname(String fname){
 	   return fd.queryByfname(fname);
    }
- 
   
   @RequestMapping(path="fruit.s",params = "op=queryFruitByCid")
 	public List<Fruit> queryProductByCid(int cid,int pageNum,int pageSize){
