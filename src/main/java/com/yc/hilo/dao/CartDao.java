@@ -32,6 +32,13 @@ public class CartDao extends BaseDao {
 			jt.update(sql, uid, fid, count);
 		}
 	}
+	
+	public void addCarts(Integer uid,int fid) {
+	       String sql = "insert into cart values(null,?,?,1)";
+	       jt.update(sql, uid, fid);
+}
+	
+	
 
 	public void deleteCart(String fid) {
 		String sql = "delete from cart where fid=?";

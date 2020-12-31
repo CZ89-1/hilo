@@ -53,6 +53,17 @@ public class CartAction {
 		return Result.success("添加购物车成功!");
 	}
 	
+	@RequestMapping(path="cart.s" ,params = "addCarts")
+	public Result addCarts(int fid,HttpSession session) {
+		// 获取当前的登录的用户
+		User user = (User) session.getAttribute("loginedUser");
+		
+		cdao.addCarts(user.getUid(),fid);
+		
+		return Result.success("加购成功!");
+		
+	}
+	
 	/**
 	 * 查询购物车
 	 * @param session

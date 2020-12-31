@@ -345,7 +345,7 @@
 
                                     <li><a href="index.html"><i class='bx bx-repost'></i></a></li>
                                     <li><a @click="addWish(f.fid)"><i class='bx bx-heart'></i></a></li>
-                                    <li><a href="cart.html"><i class='bx bx-cart'></i></a></li>
+                                    <li><a @click="addCart(f.fid)"><i class='bx bx-cart'></i></a></li>
                                 </ul>
                             </div>
 
@@ -385,7 +385,22 @@
     							}
                     		});
           						
-          					}
+          					},
+          					addCart(fid){
+                  			  axios.get("getLoginedUser").then(res=>{
+                  			  if( res.data && res.data.uid ){
+        							axios.get("cart.s?addCarts&fid="+fid).then(res=>{
+        								alert(res.data.msg);
+        								
+        							})
+                  			  }else {
+    								alert("你尚未登录");
+  								location.href = "log-in.html";
+  							}
+                  		});
+        						
+        					}
+          					
                     	  }
                     		  
                     	  
@@ -409,17 +424,7 @@
                                                          追求潮流,永无止境
                     </p>
                 </div>
-                <div id="opwi"><button @click="openwindow()">wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</button></div>
-                <script type="text/javascript">
-                var v11=new Vue({
-                	el:"#opwi",
-                	methods:{
-                		openwindow(){
-                			window.open ('index.html', 'newwindow', 'height=100, width=400, top=500,left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no');
-                		}
-                	}
-                })
-                </script>
+                
                 
                 <div class="row pt-45" id="app2">
                     <div class="col-lg-9" >
