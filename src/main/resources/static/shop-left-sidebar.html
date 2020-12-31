@@ -388,6 +388,11 @@ ul.pagination li a {
 								p.append("cid",this.cid);
 								p.append("pageNum",this.pageNum);
 								p.append("pageSize",this.pageSize);
+								axios.get("fruitsss?cid="+this.cid).then(res=>{
+									this.rows=res.data;
+									var t =this.rows/this.pageSize;
+									this.pageTotal=Math.ceil(t);
+								}),
 								axios.post("fruit.s",p).then(res=>{
 									this.fruits = res.data;
 								})

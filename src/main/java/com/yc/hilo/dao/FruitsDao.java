@@ -141,6 +141,10 @@ public class FruitsDao extends BaseDao{
 			String sql="UPDATE `fruit` SET fname=?,`fprice`=?,`fnprice`=?,f_image=?,fdesc=?,hot=?,guanggao=?,cid=? WHERE fid=?";
 			jt.update(sql,fname,fprice,fnprice,fImage,fdesc,hot,guanggao,cid,fid);
 		}
+	public int getFruitsCidNum(int cid) {
+		String sql="select count(fid) from fruit  where cid = ?";
+		return jt.queryForObject(sql, Integer.class,cid);
+	}
 		
 
 }
