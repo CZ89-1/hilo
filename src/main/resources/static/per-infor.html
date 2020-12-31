@@ -342,8 +342,15 @@ value="user.phone" v-model="user.phone">
 		 },
 		 created(){
 				axios.get("getLoginedUser").then(res=>{
-					this.user = res.data;
-					console.info(this.user);
+					if( res.data && res.data.uid ){
+						//console.log(this.$refs.counts.value);
+						axios.get("queryCart").then(res=>{
+							this.fruits = res.data;
+						});
+					}else {
+						alert("你尚未登录");
+						location.href = "log-in.html";
+					}
 				})
 			},
 	    methods:{
