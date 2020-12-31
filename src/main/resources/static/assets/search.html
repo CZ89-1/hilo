@@ -145,8 +145,8 @@
 											<td ><a href="#" >{{f.fdesc}}</a></td>
 											<td ><a href="#" >{{f.hot}}</a></td>
 											<td ><a href="#" >{{f.guanggao}}</a></td>
-											<td class="btn btn-danger" type="button" >删除</td>
-											<td class="btn btn-danger" type="button" >修改</td>
+											<td class="btn btn-danger" type="button" @click="deleteFruit(f.fid)">删除</td>
+											<td class="btn btn-danger" type="button" ><a :href="'updatefruit.html#'+f.fid">修改</a></td>
 											
 											
 										</tr>
@@ -167,7 +167,13 @@
 									axios.get("../search.s?fname="+f).then(res=>{
 										this.fruits=res.data;
 									})
-								}
+								},
+								 deleteFruit(fid){
+	                    			  axios.get("../fruit.s?op=deleteFruit&fid="+fid).then(res=>{
+	                    				  alert(res.data.msg);
+	                    				  location.href="back.html";
+	                        		  }) 
+	                    		  }
 							})
 						</script>
 					</div>

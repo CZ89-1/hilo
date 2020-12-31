@@ -72,6 +72,13 @@ public class OrdersAction {
 		return odao.queryOrderstate(state,user.getUid());
 	}
 	
+	@RequestMapping(path="order.s" ,params = "sendOrder")
+	public Result sendOrder(int oid,HttpSession session) {
+		odao.sendOrder(oid);
+		return Result.success("发货成功!");
+		
+	}
+	
 	
 	
 

@@ -124,7 +124,7 @@
 											
 											
 											<td class="btn btn-danger" type="button" >删除</td>
-											<td class="btn btn-danger" type="button" >发货</td>
+											<td class="btn btn-danger" type="button" @click="send(o.oid)">发货</td>
 											
 											
 										</tr>
@@ -145,6 +145,17 @@
                     		  axios.get("../queryAllOrders").then(res=>{
                     			  this.orders=res.data;
                     		  })
+                    	  },
+                    	  methods:{
+                    		  send(oid){
+                    			  axios.get("../order.s?sendOrder&oid="+oid).then(res=>{
+                        			  if(confirm("确认要发货吗?")){
+                        				  alert(res.data.msg);
+                        				  location.href="ordergl.html";
+                        			  }
+                        		  })  
+                    		  }
+         
                     	  }
                     	  
           						

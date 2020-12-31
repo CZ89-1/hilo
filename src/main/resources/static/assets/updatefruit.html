@@ -193,6 +193,7 @@
 									var cid=this.fruits.cid;
 									axios.get("../saveFruit.s?op=save&fid="+fid+"&fname="+fname+"&fprice="+fprice+"&fnprice="+fnprice+"&fImage="+fImage+"&fdesc="+fdesc+"&hot="+hot+"&guanggao="+guanggao+"&cid="+cid).then(res=>{
 												   alert(res.data.msg);
+												   location.href="back.html";
 											 
 										});
 								}	

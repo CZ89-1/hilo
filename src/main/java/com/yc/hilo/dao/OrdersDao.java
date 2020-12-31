@@ -82,6 +82,11 @@ public class OrdersDao extends BaseDao{
 		jt.update(sql,oid);
 	}
 	
+	public void sendOrder(int oid) {
+		String sql="update orders set state=5 where oid=?";
+		jt.update(sql,oid);
+	}
+	
 	public List<Map<String,Object>> queryOrderstate(int state,Integer uid) {
 		String sql="SELECT * from orders a JOIN orderitem b JOIN fruit c WHERE a.oid=b.oid AND b.fid=c.fid and state=? AND uid=?";
 		return jt.queryForList(sql,state,uid);
