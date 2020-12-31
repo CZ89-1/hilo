@@ -113,6 +113,11 @@ public class FruitsAction {
 	  return fd.getFruitsTotalNum();
   }
   
+  @RequestMapping(path="fruitsss")
+  public int getFruitsCidNum(int cid) {
+	  return fd.getFruitsCidNum(cid);
+  }
+  
   //后台商品修改
   @RequestMapping(path="saveFruit.s" ,params = "op=save")
 	public Result SaveFruit(String fid,String fname,String fprice,String fnprice,String fImage,String fdesc,String hot,String guanggao,String cid,HttpSession session) throws SQLException, BizException {
